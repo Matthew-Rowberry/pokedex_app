@@ -1,12 +1,20 @@
 import './App.css';
-import data from  './data/api'
+import Menu from './features/menu/Menu'
+import Pokedex from "./features/pokedex/Pokedex";
+import styled from "styled-components";
 
-function App() {
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: palevioletred;
+`;
 
-  console.log(data)
+const App = () => {
   return (
     <div className="App">
-
+        <Title>Pokèdex</Title>
+        <Menu />
+        <Pokedex />
     </div>
   );
 }
