@@ -1,6 +1,6 @@
 import './App.css';
 import Menu from './features/menu/Menu'
-import Pokedex from "./features/pokedex/Pokedex";
+import Dex from "./features/dex/Dex";
 import styled from "styled-components";
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -16,7 +16,7 @@ const App = () => {
           <div className="App">
               <Title>Pokèdex</Title>
               <Menu />
-              <Pokedex />
+              <Dex />
           </div>
       </Router>
   );

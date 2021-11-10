@@ -20,7 +20,7 @@ const Item = styled(NavLink)`
 `;
 
 const Icon = styled.img`
-  width: 100px;
+  width: 75px;
 `;
 
 const Name = styled.p`
@@ -32,16 +32,16 @@ const DexItem = (props) => {
 
     useEffect(() => {
         const fillPokemonData = async () => {
-            let pokemonData = await axios.get(props.pokemonUrl)
+            let pokemonData = await axios.get(props.itemUrl)
             updatePokemon(pokemonData.data)
         }
         fillPokemonData()
     }, [])
 
     return (
-        <Item key={pokemonData.id} to={`/${pokemonData.name}`}>
+        <Item key={pokemonData.id} to={`/pokemon/${pokemonData.name}`}>
             <p>#{pokemonData.id}</p>
-            <Icon src={pokemonData.sprites?.versions["generation-vii"].icons.front_default} alt={pokemonData.name}/>
+            <Icon src={pokemonData.sprites?.versions["generation-viii"].icons.front_default} alt={pokemonData.name}/>
             <Name>{pokemonData.name}</Name>
             {/*<p>{`<3`}</p>*/}
         </Item>
