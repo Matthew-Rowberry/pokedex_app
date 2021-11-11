@@ -1,6 +1,6 @@
 import './App.css';
 import Menu from './features/menu/Menu'
-import Dex from "./features/dex/Dex";
+import DexContainer from "./features/dexContainer/DexContainer";
 import styled from "styled-components";
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -16,7 +16,7 @@ const App = () => {
           <div className="App">
               <Title>Pokèdex</Title>
               <Menu />
-              <Dex />
+              <DexContainer />
           </div>
       </Router>
   );

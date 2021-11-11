@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import axios from "axios";
+// import axios from "axios";
 
 const Display = () => {
     let slug  = useParams();
@@ -8,14 +8,14 @@ const Display = () => {
 
     useEffect(() => {
         const fillItemInfo = async () => {
-            let itemInfo = await axios.get(`https://pokeapi.co/api/v2/pokemon/${slug.name}`)
-            updateItem(itemInfo.data)
+            const itemInfo = await fetch(`https://pokeapi.co/api/v2/${slug.category}/${slug.name}`)
+            updateItem(await itemInfo.json())
         }
 
         fillItemInfo()
     }, [slug.name])
 
-
+    // return <img src={itemData.sprites?.default} alt={itemData.name} />
     return <img src={itemData.sprites?.other['official-artwork'].front_default} alt={itemData.name} />
 }
 
