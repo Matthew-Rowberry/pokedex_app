@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import Display from "../display/Display";
 import List from "../list/List";
-import { useListProvider } from "../../hooks/useListProvider";
 
 const Container = styled.div`
   background-color: coral;
@@ -17,15 +16,11 @@ const ScrollingDex = styled.div`
 `;
 
 const DexContainer = () => {
-    const context = useListProvider()
-
     return (
         <Container>
             <Routes>
                 <Route exact path='/:category/:name' element={
-                    <>
-                        <Display />
-                    </>
+                    <Display />
                 }/>
                 <Route exact path='/:category' element={
                     <ScrollingDex>
@@ -37,7 +32,6 @@ const DexContainer = () => {
                     <Navigate to="/pokemon" />
                 }/>
             </Routes>
-            <button onClick={() => context.nextPage('pokemon')}>Click me</button>
         </Container>
     )
 }

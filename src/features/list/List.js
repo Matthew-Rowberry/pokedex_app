@@ -9,7 +9,7 @@ const List = () => {
 
     useEffect(() => {
         context.nextPage(params.category)
-    }, [])
+    }, [params.category])
 
     return (
         <>
@@ -17,10 +17,12 @@ const List = () => {
                 return (
                     <Item
                         itemName={dexItemName}
+                        key={dexItemName}
                     />
                 )
             })}
             {context[params.category].loadingList && <h1>Loading</h1>}
+            <button onClick={() => context.nextPage(params.category)}>Click me</button>
         </>
     )
 }

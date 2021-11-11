@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {useEffect} from "react";
 import {NavLink, useParams} from "react-router-dom";
-import {usePokemon} from "../../hooks/useListProvider";
+import {useBaseItem} from "../../hooks/useListProvider";
 
 const ListItem = styled(NavLink)`
   color: floralwhite;
@@ -29,7 +29,7 @@ const Name = styled.p`
 
 const Item = (props) => {
     const params = useParams();
-    const { loading, data, fetch } = usePokemon(props.itemName);
+    const { loading, data, fetch } = useBaseItem(params.category, props.itemName);
 
     useEffect(() => {
         if(!data) fetch()
@@ -40,8 +40,8 @@ const Item = (props) => {
     return (
         <ListItem key={data.id} to={`/${[params.category]}/${data.name}`}>
             <p>#{data.id}</p>
-            {/*<Icon src={pokemonDataa.sprites?.default} alt={pokemonData.name}/>*/}
-            <Icon src={data.sprites?.versions["generation-viii"].icons.front_default} alt={data.name}/>
+            {/*<Icon src={data.sprites?.default} alt={data.name}/>*/}
+            {/*<Icon src={data.sprites?.versions["generation-viii"].icons.front_default} alt={data.name}/>*/}
             <Name>{data.name}</Name>
         </ListItem>
     )

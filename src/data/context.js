@@ -14,7 +14,9 @@ export const ListProvider = ({children}) => {
         },
         item: {
             list: [],
-            loading: false,
+            data: {},
+            loading: {},
+            loadingList: false,
             offset: 0
         }
     })

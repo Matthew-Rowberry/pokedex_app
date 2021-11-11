@@ -10,9 +10,11 @@ const Display = () => {
         if(!data && !loading) fetch()
     }, [])
 
-    // return <img src={itemData.sprites?.default} alt={itemData.name} />
     if(loading || !data) return <h1>Loading Display</h1>
-    return <img src={data.sprites?.other['official-artwork'].front_default} alt={data.name} />
+    return <p>P</p>;
+    // return <img src={data.sprites?.other['official-artwork'].front_default} alt={data.name} />
+    // return <img src={data.sprites?.default} alt={data.name} />
+
 }
 
 export default Display;
