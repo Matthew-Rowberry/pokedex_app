@@ -1,27 +1,28 @@
 import Item from "../item/Item";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useParams} from "react-router-dom";
+import { useListProvider } from "../../hooks/useListProvider";
 
 const List = () => {
     let params = useParams()
-    const [limit, updateLimit] = useState(20)
-    const [dexList, updateList] = useState([])
+    const context = useListProvider()
 
     useEffect(() => {
-        const fillIntList = async () => {
-            let dexItems = await fetch(`https://pokeapi.co/api/v2/${params.category}?limit=${limit}&offset=0`).then(res => res.json())
-            updateList(dexItems.results)
-        }
-        fillIntList()
-    }, [limit, params.category])
+        context.nextPage(params.category)
+    }, [])
 
-    return dexList.map((dexItem, index) => {
-        return (
-            <Item
-                itemUrl={dexList[index].url}
-            />
-        )
-    })
+    return (
+        <>
+            {context[params.category].list.map(dexItemName => {
+                return (
+                    <Item
+                        itemName={dexItemName}
+                    />
+                )
+            })}
+            {context[params.category].loadingList && <h1>Loading</h1>}
+        </>
+    )
 }
 
 export default List;

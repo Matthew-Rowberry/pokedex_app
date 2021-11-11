@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {NavLink, useParams} from "react-router-dom";
+import {usePokemon} from "../../hooks/useListProvider";
 
 const ListItem = styled(NavLink)`
   color: floralwhite;
@@ -27,24 +28,21 @@ const Name = styled.p`
 `;
 
 const Item = (props) => {
-    let params = useParams();
-    const [item, updateItem] = useState({});
+    const params = useParams();
+    const { loading, data, fetch } = usePokemon(props.itemName);
 
     useEffect(() => {
-        const fillItemData = async () => {
-            const itemData = await fetch(props.itemUrl);
-            updateItem(await itemData.json());
-        }
+        if(!data) fetch()
+    }, [])
 
-        fillItemData()
-    }, [props.itemUrl, params.category])
+    if(!data || loading) return <h1>Loading item</h1>;
 
     return (
-        <ListItem key={item.id} to={`/${[params.category]}/${item.name}`}>
-            <p>#{item.id}</p>
-            {/*<Icon src={item.sprites?.default} alt={item.name}/>*/}
-            <Icon src={item.sprites?.versions["generation-viii"].icons.front_default} alt={item.name}/>
-            <Name>{item.name}</Name>
+        <ListItem key={data.id} to={`/${[params.category]}/${data.name}`}>
+            <p>#{data.id}</p>
+            {/*<Icon src={pokemonDataa.sprites?.default} alt={pokemonData.name}/>*/}
+            <Icon src={data.sprites?.versions["generation-viii"].icons.front_default} alt={data.name}/>
+            <Name>{data.name}</Name>
         </ListItem>
     )
 }

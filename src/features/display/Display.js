@@ -1,22 +1,18 @@
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-// import axios from "axios";
+import {useEffect} from "react";
+import {usePokemon} from "../../hooks/useListProvider";
 
 const Display = () => {
-    let slug  = useParams();
-    const [itemData, updateItem] = useState([])
+    let params  = useParams();
+    const { loading, data, fetch } = usePokemon(params.name);
 
     useEffect(() => {
-        const fillItemInfo = async () => {
-            const itemInfo = await fetch(`https://pokeapi.co/api/v2/${slug.category}/${slug.name}`)
-            updateItem(await itemInfo.json())
-        }
-
-        fillItemInfo()
-    }, [slug.name])
+        if(!data && !loading) fetch()
+    }, [])
 
     // return <img src={itemData.sprites?.default} alt={itemData.name} />
-    return <img src={itemData.sprites?.other['official-artwork'].front_default} alt={itemData.name} />
+    if(loading || !data) return <h1>Loading Display</h1>
+    return <img src={data.sprites?.other['official-artwork'].front_default} alt={data.name} />
 }
 
 export default Display;
