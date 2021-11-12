@@ -12,7 +12,7 @@ export const ListProvider = ({children}) => {
             loadingList: false,
             offset: 0
         },
-        entity: {
+        item: {
             list: [],
             data: {},
             loading: {},
