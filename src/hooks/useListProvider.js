@@ -5,12 +5,12 @@ export const useListProvider = () => {
     return useContext(ListContext);
 }
 
-export const useBaseItem = (key, id) => {
+export const useBaseEntity = (key, id) => {
     const context = useListProvider();
     const data = context[key].data[id];
     const loading = context[key].loading[id];
 
-    const fetch = () => context.getItemById(key, id);
+    const fetch = () => context.getEntityById(key, id);
 
     return {
         data,
@@ -20,9 +20,9 @@ export const useBaseItem = (key, id) => {
 }
 
 export const usePokemon = (id) => {
-    return useBaseItem('pokemon', id)
+    return useBaseEntity('pokemon', id)
 }
 
 export const useItem = (id) => {
-    return useBaseItem('item', id)
+    return useBaseEntity('item', id)
 }

@@ -11,8 +11,7 @@ const Display = () => {
     }, [])
 
     if(loading || !data) return <h1>Loading Display</h1>
-    return <p>P</p>;
-    // return <img src={data.sprites?.other['official-artwork'].front_default} alt={data.name} />
+    return <img src={data.sprites?.other['official-artwork'].front_default} alt={data.name} />
     // return <img src={data.sprites?.default} alt={data.name} />
 
 }

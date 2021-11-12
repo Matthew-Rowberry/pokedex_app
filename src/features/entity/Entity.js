@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import {useEffect} from "react";
 import {NavLink, useParams} from "react-router-dom";
-import {useBaseItem} from "../../hooks/useListProvider";
+import {useBaseEntity} from "../../hooks/useListProvider";
 
-const ListItemContainer = styled(NavLink)`
+const ListEntityContainer = styled(NavLink)`
   color: floralwhite;
   width: 100%;
   position: relative;
   padding-top: 100%;
 `;
 
-const ListItemHolder = styled.div`
+const ListEntityHolder = styled.div`
   color: floralwhite;
   width: 100%;
   position: relative;
@@ -22,7 +22,7 @@ const Inset = styled.div`
   inset: 0;
 `;
 
-const ListItem = styled.div`
+const ListEntity = styled.div`
   text-align: center;
   border-radius: 10px;
   overflow: hidden;
@@ -58,7 +58,7 @@ const Icon = styled.img`
   pointer-events: none;
 `;
 
-const PkmnNumber = styled.p`
+const Number = styled.p`
   width: fit-content;
   position: absolute;
   bottom: 5%;
@@ -70,9 +70,9 @@ const PkmnNumber = styled.p`
   
 `
 
-const Item = (props) => {
+const Entity = (props) => {
     const params = useParams();
-    const { loading, data, fetch } = useBaseItem(params.category, props.itemName);
+    const { loading, data, fetch } = useBaseEntity(params.category, props.entityName);
 
     useEffect(() => {
         if(!data) fetch()
@@ -80,28 +80,31 @@ const Item = (props) => {
 
     if(!data || loading) {
         return (
-            <ListItemHolder>
+            <ListEntityHolder>
                 <Inset>
-                    <ListItem>
+                    <ListEntity>
                         <p>Loading</p>
-                    </ListItem>
+                    </ListEntity>
                 </Inset>
-            </ListItemHolder>
+            </ListEntityHolder>
         );
     }
 
+    const displayName = data.name.replace(/-/g, " ");
+    const displayNumber = ('00' + data.id).slice(-3)
+
     return (
-        <ListItemContainer key={data.id} to={`/${[params.category]}/${data.name}`}>
+        <ListEntityContainer key={data.id} to={`/${[params.category]}/${data.name}`}>
             <Inset>
-                <ListItem>
-                    <Name>{data.name}</Name>
+                <ListEntity>
+                    <Name>{displayName}</Name>
                     {/*<Icon src={data.sprites?.default} alt={data.name}/>*/}
-                    <Icon src={data.sprites?.versions["generation-viii"].icons.front_default} alt={data.name}/>
-                    <PkmnNumber>#{data.id}</PkmnNumber>
-                </ListItem>
+                    {/*<Icon src={data.sprites?.versions["generation-viii"].icons.front_default} alt={data.name}/>*/}
+                    {params.category === "pokemon" && <Number>#{displayNumber}</Number>}
+                </ListEntity>
             </Inset>
-        </ListItemContainer>
+        </ListEntityContainer>
     )
 }
 
-export default Item;
+export default Entity;

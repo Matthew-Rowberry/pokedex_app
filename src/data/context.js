@@ -12,7 +12,7 @@ export const ListProvider = ({children}) => {
             loadingList: false,
             offset: 0
         },
-        item: {
+        entity: {
             list: [],
             data: {},
             loading: {},
@@ -39,13 +39,13 @@ export const ListProvider = ({children}) => {
             [key]: {
                 ...prevState[key],
                 offset: prevState[key].offset + 30,
-                list: [...prevState[key].list, ...res.data.results.map(item => item.name)],
+                list: [...prevState[key].list, ...res.data.results.map(entity => entity.name)],
                 loadingList: false,
             }
         }))
     }
 
-    const getItemById = async (key, id) => {
+    const getEntityById = async (key, id) => {
         if(state[key].loading[id]) return;
 
         updateState({
@@ -79,7 +79,7 @@ export const ListProvider = ({children}) => {
 
 
     return (
-        <ListContext.Provider value={{...state, nextPage, getItemById}}>
+        <ListContext.Provider value={{...state, nextPage, getEntityById}}>
             {children}
         </ListContext.Provider>
     )

@@ -1,4 +1,4 @@
-import Item from "../item/Item";
+import Entity from "../entity/Entity";
 import {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import { useListProvider } from "../../hooks/useListProvider";
@@ -22,11 +22,11 @@ const List = () => {
 
     return (
         <GridView>
-            {context[params.category].list.map(dexItemName => {
+            {context[params.category].list.map(dexEntityName => {
                 return (
-                    <Item
-                        itemName={dexItemName}
-                        key={dexItemName}
+                    <Entity
+                        entityName={dexEntityName}
+                        key={dexEntityName}
                     />
                 )
             })}
