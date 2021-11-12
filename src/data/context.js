@@ -32,13 +32,13 @@ export const ListProvider = ({children}) => {
             }
         })
 
-        const res = await axios.get(`https://pokeapi.co/api/v2/${key}?limit=10&offset=${state[key].offset}`);
+        const res = await axios.get(`https://pokeapi.co/api/v2/${key}?limit=30&offset=${state[key].offset}`);
 
         updateState(prevState => ({
             ...prevState,
             [key]: {
                 ...prevState[key],
-                offset: prevState[key].offset + 10,
+                offset: prevState[key].offset + 30,
                 list: [...prevState[key].list, ...res.data.results.map(item => item.name)],
                 loadingList: false,
             }

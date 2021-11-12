@@ -6,13 +6,13 @@ import List from "../list/List";
 
 const Container = styled.div`
   background-color: coral;
-  display: grid;
-  grid-template-columns: 1fr auto;
 `;
 
 const ScrollingDex = styled.div`
   height: 100%;
   overflow: scroll;
+  padding: 15px;
+  box-sizing: border-box;
 `;
 
 const DexContainer = () => {

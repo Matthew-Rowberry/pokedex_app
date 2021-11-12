@@ -3,29 +3,72 @@ import {useEffect} from "react";
 import {NavLink, useParams} from "react-router-dom";
 import {useBaseItem} from "../../hooks/useListProvider";
 
-const ListItem = styled(NavLink)`
+const ListItemContainer = styled(NavLink)`
   color: floralwhite;
-  background-color: teal;
-  border-radius: 25px 0 0 25px;
-  display: grid;
-  grid-template-columns: auto auto 1fr;
-  align-items: center;
-  column-gap: 15px;
-  padding: 15px;
-  margin-top: 8px;
-  
-  &:last-child {
-    margin-bottom: 8px;
-  }
+  width: 100%;
+  position: relative;
+  padding-top: 100%;
 `;
 
-const Icon = styled.img`
-  width: 75px;
+const ListItemHolder = styled.div`
+  color: floralwhite;
+  width: 100%;
+  position: relative;
+  padding-top: 100%;
+`;
+
+const Inset = styled.div`
+  position: absolute;
+  inset: 0;
+`;
+
+const ListItem = styled.div`
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: rgb(0 0 0 / 10%) 0 10px 20px 2px;
+  border: 1px solid black;
+  padding: 1rem;
+  position: absolute;
+  inset: 0;
+;
 `;
 
 const Name = styled.p`
-  text-align: left;
+  width: fit-content;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -0%);
+  z-index: 3;
+  transition: filter 0.2s ease 0s;
+  pointer-events: none;
+  text-transform: capitalize;
+  font-size: 1.4rem;
+`
+
+const Icon = styled.img`
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  transition: filter 0.2s ease 0s;
+  pointer-events: none;
 `;
+
+const PkmnNumber = styled.p`
+  width: fit-content;
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  z-index: 1;
+  transition: filter 0.2s ease 0s;
+  pointer-events: none;
+  font-size: 18px;
+  
+`
 
 const Item = (props) => {
     const params = useParams();
@@ -35,15 +78,29 @@ const Item = (props) => {
         if(!data) fetch()
     }, [])
 
-    if(!data || loading) return <h1>Loading item</h1>;
+    if(!data || loading) {
+        return (
+            <ListItemHolder>
+                <Inset>
+                    <ListItem>
+                        <p>Loading</p>
+                    </ListItem>
+                </Inset>
+            </ListItemHolder>
+        );
+    }
 
     return (
-        <ListItem key={data.id} to={`/${[params.category]}/${data.name}`}>
-            <p>#{data.id}</p>
-            {/*<Icon src={data.sprites?.default} alt={data.name}/>*/}
-            {/*<Icon src={data.sprites?.versions["generation-viii"].icons.front_default} alt={data.name}/>*/}
-            <Name>{data.name}</Name>
-        </ListItem>
+        <ListItemContainer key={data.id} to={`/${[params.category]}/${data.name}`}>
+            <Inset>
+                <ListItem>
+                    <Name>{data.name}</Name>
+                    {/*<Icon src={data.sprites?.default} alt={data.name}/>*/}
+                    <Icon src={data.sprites?.versions["generation-viii"].icons.front_default} alt={data.name}/>
+                    <PkmnNumber>#{data.id}</PkmnNumber>
+                </ListItem>
+            </Inset>
+        </ListItemContainer>
     )
 }
 
