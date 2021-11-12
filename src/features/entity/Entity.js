@@ -97,6 +97,7 @@ const Entity = (props) => {
         <ListEntityContainer key={data.id} to={`/${[params.category]}/${data.name}`}>
             <Inset>
                 <ListEntity>
+                    <p>Test</p>
                     <Name>{displayName}</Name>
                     {/*<Icon src={data.sprites?.default} alt={data.name}/>*/}
                     {/*<Icon src={data.sprites?.versions["generation-viii"].icons.front_default} alt={data.name}/>*/}
