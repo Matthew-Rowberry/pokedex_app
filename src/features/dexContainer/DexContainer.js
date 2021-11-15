@@ -6,6 +6,7 @@ import List from "../list/List";
 
 const Container = styled.div`
   background-color: coral;
+  overflow: scroll;
 `;
 
 const ScrollingDex = styled.div`
