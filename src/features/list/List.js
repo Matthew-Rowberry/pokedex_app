@@ -38,6 +38,8 @@ const List = () => {
                     />
                 )
             })}
+
+            {/*Insert loading icon here*/}
             {/*{context[params.category].loadingList && <h1>Loading</h1>}*/}
             <span ref={ref} style={{"width":"100%", "display":"block"}} />
         </GridView>

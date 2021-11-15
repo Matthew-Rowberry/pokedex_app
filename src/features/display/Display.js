@@ -80,7 +80,7 @@ const Display = () => {
             <Portrait src={imgURL} alt={data.name} />
             <Details>
                 <p>Name: {data.name}</p>
-                <p>National PokeDex Number: {data.id}</p>
+                <p>#{data.id}</p>
                 <p>Height: {data.height / 10} M</p>
                 <p>Weight: {data.weight / 10} Kg</p>
 

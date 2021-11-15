@@ -121,7 +121,27 @@ const Entity = (props) => {
             imgURL = data.sprites?.default;
             break;
         }
+    }
 
+    if(params.category !== "pokemon") {
+        return (
+            <ListEntityContainer key={data.id}>
+                <Inset>
+                    <ListEntity>
+                        <Name>{displayName}</Name>
+                        <Icon category={params.category} src={imgURL} alt={data.name}/>
+                        {params.category === "pokemon" && <Number>#{displayNumber}</Number>}
+                    </ListEntity>
+                </Inset>
+                <Fav>
+                    {favContext[params.category][data.id] ?
+                        <AiFillHeart onClick={() => {favContext.updateFavourite(params.category, data.id)}} fill={"#AB3433"}/>
+                        :
+                        <AiOutlineHeart onClick={() => {favContext.updateFavourite(params.category, data.id)}}/>
+                    }
+                </Fav>
+            </ListEntityContainer>
+        )
     }
 
     return (
