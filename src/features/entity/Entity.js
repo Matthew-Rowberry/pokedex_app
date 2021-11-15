@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
 import {NavLink, useParams} from "react-router-dom";
 import {useBaseEntity} from "../../hooks/useListProvider";
+import { FavouritesContext } from "../../data/favouritesProvider";
+import {ListContext} from "../../data/context";
 
-const ListEntityContainer = styled(NavLink)`
+const ListEntityContainer = styled.div`
   color: floralwhite;
   width: 100%;
   position: relative;
@@ -74,11 +76,20 @@ const Number = styled.p`
   font-weight: 300;
   color: black;
   font-style: italic;
-  
-`
+`;
+
+const Fav = styled.button`
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  z-index: 10;
+`;
 
 const Entity = (props) => {
     const params = useParams();
+    const favContext = useContext(FavouritesContext)
     const { loading, data, fetch } = useBaseEntity(params.category, props.entityName);
 
     useEffect(() => {
@@ -113,14 +124,17 @@ const Entity = (props) => {
     }
 
     return (
-        <ListEntityContainer key={data.id} to={`/${[params.category]}/${data.name}`}>
-            <Inset>
-                <ListEntity>
-                    <Name>{displayName}</Name>
-                    <Icon category={params.category} src={imgURL} alt={data.name}/>
-                    {params.category === "pokemon" && <Number>#{displayNumber}</Number>}
-                </ListEntity>
-            </Inset>
+        <ListEntityContainer key={data.id}>
+            <NavLink to={`/${[params.category]}/${data.name}`}>
+                <Inset>
+                    <ListEntity>
+                        <Name>{displayName}</Name>
+                        <Icon category={params.category} src={imgURL} alt={data.name}/>
+                        {params.category === "pokemon" && <Number>#{displayNumber}</Number>}
+                    </ListEntity>
+                </Inset>
+            </NavLink>
+            <Fav onClick={() => {favContext.updateFavourite(data.id)}}>Click me</Fav>
         </ListEntityContainer>
     )
 }
