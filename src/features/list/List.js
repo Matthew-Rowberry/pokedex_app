@@ -2,6 +2,7 @@ import Entity from "../entity/Entity";
 import {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import { useListProvider } from "../../hooks/useListProvider";
+import { useInView } from 'react-intersection-observer';
 import styled from "styled-components";
 
 const GridView = styled.div`
@@ -16,9 +17,17 @@ const List = () => {
     let params = useParams()
     const context = useListProvider()
 
+    const { ref, inView, entry } = useInView({
+        /* Optional options */
+        threshold: 0,
+        trackVisibility: true,
+        delay: 100,
+    });
+
     useEffect(() => {
-        context.nextPage(params.category)
-    }, [params.category])
+        if(inView && !context[params.category].loadingList) context.nextPage(params.category)
+    }, [inView, !context[params.category].loadingList])
+
 
     return (
         <GridView>
@@ -32,6 +41,7 @@ const List = () => {
             })}
             {/*{context[params.category].loadingList && <h1>Loading</h1>}*/}
             <button onClick={() => context.nextPage(params.category)}>Click me</button>
+            <span ref={ref} style={{"width":"100px", "height":"1px", "display":"block", "background":"red"}} />
         </GridView>
     )
 }
