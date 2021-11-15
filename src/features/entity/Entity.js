@@ -12,6 +12,15 @@ const ListEntityContainer = styled.div`
   position: relative;
   padding-top: 100%;
   border-radius: 10px;
+
+  background: ${props => {
+    if(!props.types) return 'red'
+    if(props.types.length === 1) {
+      return typeColors[props.types[0]]
+    } else {
+      return `linear-gradient(145deg, ${typeColors[props.types[0]]}, ${typeColors[props.types[1]]})`
+    }
+  }}
 `;
 
 const ListEntityHolder = styled.div`
@@ -20,10 +29,6 @@ const ListEntityHolder = styled.div`
   position: relative;
   padding-top: 100%;
   border-radius: 10px;
-`;
-
-const ListEntityLink = styled(NavLink)`
-    background-color: ${props => props.typeColor}
 `;
 
 const Inset = styled.div`
@@ -153,8 +158,8 @@ const Entity = (props) => {
 
     const types = data.types.map((typeEntry) => typeEntry.type.name)
     return (
-        <ListEntityContainer style={{"background": typeColors[types[0]]}} key={data.id}>
-            <ListEntityLink to={`/${[params.category]}/${data.name}`}>
+        <ListEntityContainer types={types}  key={data.id}>
+            <NavLink to={`/${[params.category]}/${data.name}`}>
                 <Inset>
                     <ListEntity>
                         <Name>{displayName}</Name>
@@ -162,7 +167,7 @@ const Entity = (props) => {
                         {params.category === "pokemon" && <Number>#{displayNumber}</Number>}
                     </ListEntity>
                 </Inset>
-            </ListEntityLink>
+            </NavLink>
             <Fav>
                 {favContext[params.category][data.id] ?
                     <AiFillHeart onClick={() => {favContext.updateFavourite(params.category, data.id)}} fill={"#AB3433"}/>
