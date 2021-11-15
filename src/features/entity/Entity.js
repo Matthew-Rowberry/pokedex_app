@@ -134,7 +134,7 @@ const Entity = (props) => {
                     </ListEntity>
                 </Inset>
             </NavLink>
-            <Fav onClick={() => {favContext.updateFavourite(data.id)}}>Click me</Fav>
+            <Fav onClick={() => {favContext.updateFavourite(params.category, data.id)}}>{favContext[params.category][data.id] ? "Im Fav" : "Not my"}</Fav>
         </ListEntityContainer>
     )
 }
