@@ -3,7 +3,7 @@ import {useContext, useEffect} from "react";
 import {NavLink, useParams} from "react-router-dom";
 import {useBaseEntity} from "../../hooks/useListProvider";
 import { FavouritesContext } from "../../data/favouritesProvider";
-import {ListContext} from "../../data/context";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 const ListEntityContainer = styled.div`
   color: floralwhite;
@@ -70,22 +70,22 @@ const Number = styled.p`
   bottom: 5%;
   left: 5%;
   z-index: 1;
-  transition: filter 0.2s ease 0s;
-  pointer-events: none;
   font-size: 18px;
   font-weight: 300;
   color: black;
   font-style: italic;
 `;
 
-const Fav = styled.button`
-  position: absolute;
-  bottom: 5%;
-  right: 5%;
-  width: 75px;
-  height: 75px;
-  background-color: red;
-  z-index: 10;
+const Fav = styled.div`
+  > * {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    width: 35px;
+    height: 35px;
+    z-index: 4;
+    cursor: pointer;
+  }
 `;
 
 const Entity = (props) => {
@@ -135,11 +135,11 @@ const Entity = (props) => {
                     </ListEntity>
                 </Inset>
             </NavLink>
-            <Fav onClick={() => {favContext.updateFavourite(params.category, data.id)}}>
+            <Fav>
                 {favContext[params.category][data.id] ?
-                    "Favourite"
+                    <AiFillHeart onClick={() => {favContext.updateFavourite(params.category, data.id)}} fill={"#AB3433"}/>
                 :
-                    "UnMarked"
+                    <AiOutlineHeart onClick={() => {favContext.updateFavourite(params.category, data.id)}}/>
                 }
             </Fav>
         </ListEntityContainer>
