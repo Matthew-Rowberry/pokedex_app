@@ -10,6 +10,12 @@ const ListEntityContainer = styled.div`
   width: 100%;
   position: relative;
   padding-top: 100%;
+  border-radius: 10px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+  
 `;
 
 const ListEntityHolder = styled.div`
@@ -17,6 +23,11 @@ const ListEntityHolder = styled.div`
   width: 100%;
   position: relative;
   padding-top: 100%;
+  border-radius: 10px;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const Inset = styled.div`
