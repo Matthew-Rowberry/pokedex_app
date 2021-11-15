@@ -7,7 +7,6 @@ import styled from "styled-components";
 const Container = styled.div`
     display: grid;
     grid-template-columns: 350px 1fr;
-    grid-template-rows: 1fr 1fr;
     grid-template-areas: 'img details' 
                           'main main';
 `;
@@ -19,7 +18,11 @@ const Portrait = styled.img`
 
 const Details = styled.div`
     width: 100%;
-    grid-area: details
+    grid-area: details;
+  
+    p {
+      text-transform: capitalize;
+    } 
 `;
 
 const FlavorTextTable = styled.div`
@@ -49,6 +52,7 @@ const Display = () => {
     const { loading, data, fetch } = useBaseEntity(params.category, params.name);
 
     const detailsResponse = useSpecies(params.name);
+    console.log(detailsResponse)
     const flavorText = detailsResponse.response?.flavor_text_entries.filter((entry => entry.language.name === 'en'))
 
     useEffect(() => {
@@ -74,7 +78,37 @@ const Display = () => {
     return (
         <Container>
             <Portrait src={imgURL} alt={data.name} />
-            <Details>Data goes here</Details>
+            <Details>
+                <p>Name: {data.name}</p>
+                <p>National PokeDex Number: {data.id}</p>
+                <p>Height: {data.height / 10} M</p>
+                <p>Weight: {data.weight / 10} Kg</p>
+
+                <div>
+                    <p>Types:</p>
+                    {data.types.map((type) => {
+                        return (
+                            <div>
+                                <p>{type.type.name}</p>
+                            </div>
+                        )
+                    })}
+                </div>
+
+                <div>
+                    <p>Abilities:</p>
+                    {data.abilities.map((ability) => {
+                        const displayAbility = ability.ability.name.replace(/-/g, " ");
+
+                        return (
+                            <div>
+                                <p>{displayAbility}</p>
+                                <p>{ability.is_hidden && "(Hidden Ability)"}</p>
+                            </div>
+                        )
+                    })}
+                </div>
+            </Details>
             <FlavorTextTable>
                 {flavorText?.map((entry) => {
                     const displayName = entry.version.name.replace(/-/g, " ");
