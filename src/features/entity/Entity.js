@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
 import {NavLink, useParams} from "react-router-dom";
 import {useBaseEntity} from "../../hooks/useListProvider";
+import { FavouritesContext } from "../../data/favouritesProvider";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
-const ListEntityContainer = styled(NavLink)`
+const ListEntityContainer = styled.div`
   color: floralwhite;
   width: 100%;
   position: relative;
@@ -68,17 +70,27 @@ const Number = styled.p`
   bottom: 5%;
   left: 5%;
   z-index: 1;
-  transition: filter 0.2s ease 0s;
-  pointer-events: none;
   font-size: 18px;
   font-weight: 300;
   color: black;
   font-style: italic;
-  
-`
+`;
+
+const Fav = styled.div`
+  > * {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    width: 35px;
+    height: 35px;
+    z-index: 4;
+    cursor: pointer;
+  }
+`;
 
 const Entity = (props) => {
     const params = useParams();
+    const favContext = useContext(FavouritesContext)
     const { loading, data, fetch } = useBaseEntity(params.category, props.entityName);
 
     useEffect(() => {
@@ -113,14 +125,23 @@ const Entity = (props) => {
     }
 
     return (
-        <ListEntityContainer key={data.id} to={`/${[params.category]}/${data.name}`}>
-            <Inset>
-                <ListEntity>
-                    <Name>{displayName}</Name>
-                    <Icon category={params.category} src={imgURL} alt={data.name}/>
-                    {params.category === "pokemon" && <Number>#{displayNumber}</Number>}
-                </ListEntity>
-            </Inset>
+        <ListEntityContainer key={data.id}>
+            <NavLink to={`/${[params.category]}/${data.name}`}>
+                <Inset>
+                    <ListEntity>
+                        <Name>{displayName}</Name>
+                        <Icon category={params.category} src={imgURL} alt={data.name}/>
+                        {params.category === "pokemon" && <Number>#{displayNumber}</Number>}
+                    </ListEntity>
+                </Inset>
+            </NavLink>
+            <Fav>
+                {favContext[params.category][data.id] ?
+                    <AiFillHeart onClick={() => {favContext.updateFavourite(params.category, data.id)}} fill={"#AB3433"}/>
+                :
+                    <AiOutlineHeart onClick={() => {favContext.updateFavourite(params.category, data.id)}}/>
+                }
+            </Fav>
         </ListEntityContainer>
     )
 }

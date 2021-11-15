@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Display from "../display/Display";
 import List from "../list/List";
+import  { FavouritesProvider } from "../../data/favouritesProvider";
 
 const Container = styled.div`
   background-color: coral;
@@ -18,22 +19,24 @@ const ScrollingDex = styled.div`
 
 const DexContainer = () => {
     return (
-        <Container>
-            <Routes>
-                <Route exact path='/:category/:name' element={
-                    <Display />
-                }/>
-                <Route exact path='/:category' element={
-                    <ScrollingDex>
-                        <List />
-                    </ScrollingDex>
-                }/>
+        <FavouritesProvider>
+            <Container>
+                <Routes>
+                    <Route exact path='/:category/:name' element={
+                        <Display />
+                    }/>
+                    <Route exact path='/:category' element={
+                        <ScrollingDex>
+                            <List />
+                        </ScrollingDex>
+                    }/>
 
-                <Route exact path="/" element= {
-                    <Navigate to="/pokemon" />
-                }/>
-            </Routes>
-        </Container>
+                    <Route exact path="/" element= {
+                        <Navigate to="/pokemon" />
+                    }/>
+                </Routes>
+            </Container>
+        </FavouritesProvider>
     )
 }
 
