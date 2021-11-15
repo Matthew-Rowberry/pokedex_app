@@ -40,8 +40,7 @@ const List = () => {
                 )
             })}
             {/*{context[params.category].loadingList && <h1>Loading</h1>}*/}
-            <button onClick={() => context.nextPage(params.category)}>Click me</button>
-            <span ref={ref} style={{"width":"100px", "height":"1px", "display":"block", "background":"red"}} />
+            <span ref={ref} style={{"width":"100%", "display":"block"}} />
         </GridView>
     )
 }
