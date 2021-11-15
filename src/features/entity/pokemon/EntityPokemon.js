@@ -37,7 +37,7 @@ const ListEntity = styled.div`
 const Name = styled.p`
   width: fit-content;
   position: absolute;
-  top: 5%;
+  top: 10%;
   left: 50%;
   transform: translate(-50%, -0%);
   z-index: 3;
@@ -45,14 +45,10 @@ const Name = styled.p`
   pointer-events: none;
   text-transform: capitalize;
   font-size: 1.4rem;
-  font-weight: 900;
-  color: #222;
-  border-radius: 4px;
-  padding: 5px;
 `
 
 const Icon = styled.img`
-  width: ${props => props.category === "item" ? "50%" : "100%"};
+  width: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -71,9 +67,6 @@ const Number = styled.p`
   transition: filter 0.2s ease 0s;
   pointer-events: none;
   font-size: 18px;
-  font-weight: 300;
-  color: black;
-  font-style: italic;
   
 `
 
@@ -99,26 +92,14 @@ const Entity = (props) => {
 
     const displayName = data.name.replace(/-/g, " ");
     const displayNumber = ('00' + data.id).slice(-3)
-    let imgURL;
-    switch (params.category) {
-        case 'pokemon': {
-            imgURL = data.sprites?.versions["generation-viii"].icons.front_default;
-            break;
-        }
-        default: {
-            imgURL = data.sprites?.default;
-            break;
-        }
-
-    }
 
     return (
         <ListEntityContainer key={data.id} to={`/${[params.category]}/${data.name}`}>
             <Inset>
                 <ListEntity>
                     <Name>{displayName}</Name>
-                    <Icon category={params.category} src={imgURL} alt={data.name}/>
-                    {params.category === "pokemon" && <Number>#{displayNumber}</Number>}
+                    <Icon src={data.sprites?.versions["generation-viii"].icons.front_default} alt={data.name}/>
+                    <Number>#{displayNumber}</Number>
                 </ListEntity>
             </Inset>
         </ListEntityContainer>
