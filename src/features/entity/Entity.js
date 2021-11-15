@@ -80,9 +80,10 @@ const Number = styled.p`
 
 const Fav = styled.button`
   position: absolute;
-  top: 0;
-  width: 100px;
-  height: 100px;
+  bottom: 5%;
+  right: 5%;
+  width: 75px;
+  height: 75px;
   background-color: red;
   z-index: 10;
 `;
@@ -134,7 +135,13 @@ const Entity = (props) => {
                     </ListEntity>
                 </Inset>
             </NavLink>
-            <Fav onClick={() => {favContext.updateFavourite(params.category, data.id)}}>{favContext[params.category][data.id] ? "Im Fav" : "Not my"}</Fav>
+            <Fav onClick={() => {favContext.updateFavourite(params.category, data.id)}}>
+                {favContext[params.category][data.id] ?
+                    "Favourite"
+                :
+                    "UnMarked"
+                }
+            </Fav>
         </ListEntityContainer>
     )
 }
