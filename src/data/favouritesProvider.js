@@ -13,7 +13,7 @@ export const FavouritesProvider = ({children}) => {
             ...prevState,
             [key]: {
                 ...prevState[key],
-                [id]: !prevState[id]
+                [id]: !prevState[key][id]
             }
         }))
     }
