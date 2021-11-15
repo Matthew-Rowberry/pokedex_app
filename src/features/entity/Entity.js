@@ -3,6 +3,7 @@ import {useContext, useEffect} from "react";
 import {NavLink, useParams} from "react-router-dom";
 import {useBaseEntity} from "../../hooks/useListProvider";
 import { FavouritesContext } from "../../data/favouritesProvider";
+import typeColors from "../../data/types";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 const ListEntityContainer = styled.div`
@@ -11,11 +12,6 @@ const ListEntityContainer = styled.div`
   position: relative;
   padding-top: 100%;
   border-radius: 10px;
-
-  &:hover {
-    opacity: 0.8;
-  }
-  
 `;
 
 const ListEntityHolder = styled.div`
@@ -24,10 +20,10 @@ const ListEntityHolder = styled.div`
   position: relative;
   padding-top: 100%;
   border-radius: 10px;
+`;
 
-  &:hover {
-    opacity: 0.8;
-  }
+const ListEntityLink = styled(NavLink)`
+    background-color: ${props => props.typeColor}
 `;
 
 const Inset = styled.div`
@@ -155,9 +151,10 @@ const Entity = (props) => {
         )
     }
 
+    const types = data.types.map((typeEntry) => typeEntry.type.name)
     return (
-        <ListEntityContainer key={data.id}>
-            <NavLink to={`/${[params.category]}/${data.name}`}>
+        <ListEntityContainer style={{"background": typeColors[types[0]]}} key={data.id}>
+            <ListEntityLink to={`/${[params.category]}/${data.name}`}>
                 <Inset>
                     <ListEntity>
                         <Name>{displayName}</Name>
@@ -165,7 +162,7 @@ const Entity = (props) => {
                         {params.category === "pokemon" && <Number>#{displayNumber}</Number>}
                     </ListEntity>
                 </Inset>
-            </NavLink>
+            </ListEntityLink>
             <Fav>
                 {favContext[params.category][data.id] ?
                     <AiFillHeart onClick={() => {favContext.updateFavourite(params.category, data.id)}} fill={"#AB3433"}/>
