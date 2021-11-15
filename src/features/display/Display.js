@@ -73,7 +73,7 @@ const Display = () => {
         }
     }
 
-    if(loading || detailsResponse.loading || !data ) return <h1>Loading Display</h1>
+    if(loading || detailsResponse.loading || !detailsResponse.response || !data ) return <h1>Loading Display</h1>
 
     return (
         <Container>
