@@ -28,7 +28,6 @@ const List = () => {
         if(inView && !context[params.category].loadingList) context.nextPage(params.category)
     }, [inView, !context[params.category].loadingList])
 
-
     return (
         <GridView>
             {context[params.category].list.map(dexEntityName => {
