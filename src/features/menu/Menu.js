@@ -43,7 +43,11 @@ const paths = [
 
 const Menu = () => {
     const location = useLocation();
-    const index = paths.findIndex((path) => location.pathname === path.to);
+    const index = paths.findIndex((path) => {
+        const currentLocation = location.pathname.split('/')[1];
+        return currentLocation === path.to.split('/')[1];
+    });
+
     const prevIndex = usePrevious(index);
 
     const styles = useSpring({
