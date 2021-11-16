@@ -14,7 +14,7 @@ const ListEntityContainer = styled.div`
   border-radius: 10px;
 
   background: ${props => {
-    if(!props.types) return 'red'
+    if(!props.types) return 'none'
     if(props.types.length === 1) {
       return typeColors[props.types[0]]
     } else {
@@ -66,7 +66,7 @@ const Name = styled.p`
 `
 
 const Icon = styled.img`
-  width: ${props => props.category === "item" ? "50%" : "100%"};
+  width: ${props => props.category !== "pokemon" ? "50%" : "100%"};
   position: absolute;
   top: 50%;
   left: 50%;
@@ -74,6 +74,15 @@ const Icon = styled.img`
   z-index: 2;
   transition: filter 0.2s ease 0s;
   pointer-events: none;
+`;
+
+const Overlay = styled.img`
+  width: 200%;
+  position: absolute;
+  inset: -50% 0 0 -50%;
+  transform: rotate(180deg);
+  z-index: 1;
+  filter: blur(50px);
 `;
 
 const Number = styled.p`
@@ -142,7 +151,7 @@ const Entity = (props) => {
                     <ListEntity>
                         <Name>{displayName}</Name>
                         <Icon category={params.category} src={imgURL} alt={data.name}/>
-                        {params.category === "pokemon" && <Number>#{displayNumber}</Number>}
+                        <Overlay category={params.category} src={imgURL} alt={data.name}/>
                     </ListEntity>
                 </Inset>
                 <Fav>
