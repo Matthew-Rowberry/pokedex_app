@@ -8,6 +8,7 @@ const Navigation = styled.nav`
   justify-content: space-around;
   text-align: center;
   align-items: center;
+  padding: 15px 0;
 `
 
 const MenuItem = styled(NavLink)`
