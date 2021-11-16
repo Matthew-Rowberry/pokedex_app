@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import {useContext, useEffect} from "react";
+import {useEffect} from "react";
 import {NavLink, useParams} from "react-router-dom";
 import {useBaseEntity} from "../../hooks/useListProvider";
-import { FavouritesContext } from "../../providers/favouritesProvider";
+import Fav from '../fav/Fav'
 import typeColors from "../../data/types";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 const ListEntityContainer = styled.div`
   color: floralwhite;
@@ -97,21 +96,8 @@ const Number = styled.p`
   font-style: italic;
 `;
 
-const Fav = styled.div`
-  > * {
-    position: absolute;
-    bottom: 5%;
-    right: 5%;
-    width: 35px;
-    height: 35px;
-    z-index: 4;
-    cursor: pointer;
-  }
-`;
-
 const Entity = (props) => {
     const params = useParams();
-    const favContext = useContext(FavouritesContext)
     const { loading, data, fetch } = useBaseEntity(params.category, props.entityName);
 
     useEffect(() => {
@@ -154,13 +140,10 @@ const Entity = (props) => {
                         <Overlay category={params.category} src={imgURL} alt={data.name}/>
                     </ListEntity>
                 </Inset>
-                <Fav>
-                    {favContext[params.category][data.id] ?
-                        <AiFillHeart onClick={() => {favContext.updateFavourite(params.category, data.id)}} fill={"#AB3433"}/>
-                        :
-                        <AiOutlineHeart onClick={() => {favContext.updateFavourite(params.category, data.id)}}/>
-                    }
-                </Fav>
+                <Fav
+                    category={params.category}
+                    id={data.id}
+                />
             </ListEntityContainer>
         )
     }
@@ -177,13 +160,10 @@ const Entity = (props) => {
                     </ListEntity>
                 </Inset>
             </NavLink>
-            <Fav>
-                {favContext[params.category][data.id] ?
-                    <AiFillHeart onClick={() => {favContext.updateFavourite(params.category, data.id)}} fill={"#AB3433"}/>
-                :
-                    <AiOutlineHeart onClick={() => {favContext.updateFavourite(params.category, data.id)}}/>
-                }
-            </Fav>
+            <Fav
+                category={params.category}
+                id={data.id}
+            />
         </ListEntityContainer>
     )
 }
