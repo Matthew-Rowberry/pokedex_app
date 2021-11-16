@@ -4,6 +4,7 @@ import {NavLink, useParams} from "react-router-dom";
 import {useBaseEntity} from "../../hooks/useListProvider";
 import Fav from '../fav/Fav'
 import typeColors from "../../data/types";
+import Bounce from "../Bounce";
 
 const ListEntityContainer = styled.div`
   color: floralwhite;
@@ -54,7 +55,6 @@ const Name = styled.p`
   left: 50%;
   transform: translate(-50%, -0%);
   z-index: 3;
-  transition: filter 0.2s ease 0s;
   pointer-events: none;
   text-transform: capitalize;
   font-size: 1.4rem;
@@ -65,14 +65,7 @@ const Name = styled.p`
 `
 
 const Icon = styled.img`
-  width: ${props => props.category !== "pokemon" ? "50%" : "100%"};
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  transition: filter 0.2s ease 0s;
-  pointer-events: none;
+  width: 100%;
 `;
 
 const Overlay = styled.img`
@@ -94,6 +87,17 @@ const Number = styled.p`
   font-weight: 300;
   color: black;
   font-style: italic;
+`;
+
+const StyledBounce = styled.div`
+  width: ${props => props.category !== "pokemon" ? "50%" : "100%"};
+  font-size: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  transition: filter 0.2s ease 0s;
 `;
 
 const Entity = (props) => {
@@ -136,7 +140,9 @@ const Entity = (props) => {
                 <Inset>
                     <ListEntity>
                         <Name>{displayName}</Name>
-                        <Icon category={params.category} src={imgURL} alt={data.name}/>
+                        <StyledBounce category={params.category}>
+                            <Icon src={imgURL} alt={data.name}/>
+                        </StyledBounce>
                         <Overlay category={params.category} src={imgURL} alt={data.name}/>
                     </ListEntity>
                 </Inset>
@@ -155,8 +161,12 @@ const Entity = (props) => {
                 <Inset>
                     <ListEntity>
                         <Name>{displayName}</Name>
-                        <Icon category={params.category} src={imgURL} alt={data.name}/>
-                        {params.category === "pokemon" && <Number>#{displayNumber}</Number>}
+                        <StyledBounce category={params.category}>
+                            <Bounce>
+                                <Icon category={params.category} src={imgURL} alt={data.name}/>
+                            </Bounce>
+                        </StyledBounce>
+                        <Number>#{displayNumber}</Number>
                     </ListEntity>
                 </Inset>
             </NavLink>
