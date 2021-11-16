@@ -10,8 +10,8 @@ export const ContextThemeProvider = ({children}) => {
     }
 
     return (
-        <ThemeToggleContext.Provider value={{...currentTheme, toggleTheme}}>
-            {children(currentTheme)}}
+        <ThemeToggleContext.Provider value={{currentTheme, toggleTheme}}>
+            {children(currentTheme)}
         </ThemeToggleContext.Provider>
     )
 }

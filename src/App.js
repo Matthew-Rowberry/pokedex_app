@@ -12,6 +12,20 @@ const NavContainer = styled.div`
   top: 0;
   background-color: ${props => props.theme.colors.background.secondary};
   padding: 10px 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-areas: '. center right';
+  align-items: center;
+  
+`;
+
+const Header = styled.div`
+  grid-area: center
+`;
+
+const ToggleContainer = styled.div`
+  grid-area: right;
+  margin: 0 33% 0 66%;
 `;
 
 const Title = styled.h1`
@@ -26,14 +40,14 @@ const App = () => {
           <Router>
               <div className="App">
                   <NavContainer>
-                      <div>
+                      <Header>
                           <Title >Pokédex</Title>
                           <Menu />
-                      </div>
+                      </Header>
 
-                      <ThemeToggle
-
-                      />
+                      <ToggleContainer>
+                          <ThemeToggle/>
+                      </ToggleContainer>
                   </NavContainer>
                   <DexContainer />
               </div>

@@ -12,7 +12,7 @@ const Navigation = styled.nav`
   padding: 10px 0;
   margin: 10px auto;
   position: relative;
-  z-index: 1
+  z-index: 1;
 `;
 
 const MenuItem = styled(NavLink)`
@@ -60,7 +60,7 @@ const Menu = () => {
         <Navigation>
             <SpringTab style={styles} tabs={2} />
             {paths.map((path) => {
-                return <MenuItem to={path.to}>{path.name}</MenuItem>
+                return <MenuItem key={path.to} to={path.to}>{path.name}</MenuItem>
             })}
         </Navigation>
     )
