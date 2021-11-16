@@ -4,13 +4,13 @@ import {animated, useSpring, config} from "react-spring";
 import usePrevious from "../../hooks/usePrevious";
 
 const Navigation = styled.nav`
-  margin: 0 auto;
   width: fit-content;
   display: flex;
   justify-content: space-around;
   text-align: center;
   align-items: center;
   padding: 10px 0;
+  margin: 10px auto;
   position: relative;
   z-index: 1
 `;

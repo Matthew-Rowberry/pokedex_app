@@ -16,7 +16,7 @@ const NavContainer = styled.div`
 const Title = styled.h1`
   font-size: 1.5em;
   text-align: center;
-  color: palevioletred;
+  color: ${props => props.theme.colors.foreground.primary}
 `;
 
 const App = () => {
@@ -25,7 +25,7 @@ const App = () => {
           <Router>
               <div className="App">
                   <NavContainer>
-                      <Title >Pokèdex</Title>
+                      <Title >Pokédex</Title>
                       <Menu />
                   </NavContainer>
                   <DexContainer />
