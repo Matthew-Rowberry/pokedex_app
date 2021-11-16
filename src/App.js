@@ -1,10 +1,9 @@
 import './App.css';
 import Menu from './features/menu/Menu'
 import DexContainer from "./features/dexContainer/DexContainer";
-import styled, {ThemeProvider} from "styled-components";
-import { theme } from './theme/theme'
+import styled from "styled-components";
 import { BrowserRouter as Router } from "react-router-dom";
-import { ListProvider } from "./data/context";
+import GlobalProvider from "./providers/globalProvider";
 
 const NavContainer = styled.div`
   position: sticky;
@@ -22,19 +21,17 @@ const Title = styled.h1`
 
 const App = () => {
   return (
-      <ThemeProvider theme={theme}>
-          <ListProvider>
-              <Router>
-                  <div className="App">
-                      <NavContainer>
-                          <Title >Pokèdex</Title>
-                          <Menu />
-                      </NavContainer>
-                      <DexContainer />
-                  </div>
-              </Router>
-          </ListProvider>
-      </ThemeProvider>
+      <GlobalProvider>
+          <Router>
+              <div className="App">
+                  <NavContainer>
+                      <Title >Pokèdex</Title>
+                      <Menu />
+                  </NavContainer>
+                  <DexContainer />
+              </div>
+          </Router>
+      </GlobalProvider>
   );
 }
 

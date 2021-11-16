@@ -1,6 +1,6 @@
 import {NavLink, useLocation} from "react-router-dom";
 import styled from "styled-components";
-import {animated, useSpring} from "react-spring";
+import {animated, useSpring, config} from "react-spring";
 import usePrevious from "../../hooks/usePrevious";
 
 const Navigation = styled.nav`
@@ -47,6 +47,7 @@ const Menu = () => {
     const prevIndex = usePrevious(index);
 
     const styles = useSpring({
+        config: config.wobbly,
         from: {translateX: (100 * prevIndex) + '%'},
         to: {translateX: (100 * index) + '%'}
     })

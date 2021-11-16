@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {useContext, useEffect} from "react";
 import {NavLink, useParams} from "react-router-dom";
 import {useBaseEntity} from "../../hooks/useListProvider";
-import { FavouritesContext } from "../../data/favouritesProvider";
+import { FavouritesContext } from "../../providers/favouritesProvider";
 import typeColors from "../../data/types";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
