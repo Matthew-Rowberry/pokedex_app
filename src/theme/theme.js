@@ -2,7 +2,8 @@ export const theme = {
     colors: {
         background: {
             primary: '#1e1a24',
-            secondary: '#7e3de0'
+            secondary: '#7e3de0',
+            tertiary: '#601cc7'
         },
         foreground: {
             onBackground: '#FFF',
@@ -10,5 +11,6 @@ export const theme = {
         },
         icon: '#FFF',
         borderColor: '#601cc7'
-    }
+    },
+    borderRadius: '10px;'
 }

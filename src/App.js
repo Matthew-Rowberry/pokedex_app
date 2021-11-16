@@ -10,7 +10,8 @@ const NavContainer = styled.div`
   position: sticky;
   z-index: 5;
   top: 0;
-  background-color: ${props => props.theme.colors.background.secondary}
+  background-color: ${props => props.theme.colors.background.secondary};
+  padding: 10px 0;
 `;
 
 const Title = styled.h1`
