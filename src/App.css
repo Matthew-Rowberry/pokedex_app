@@ -2,5 +2,4 @@
   font-size: calc(10px + 2vmin);
   color: white;
   display: grid;
-  grid-template-rows: 50px 50px calc(100vh - 100px);
 }

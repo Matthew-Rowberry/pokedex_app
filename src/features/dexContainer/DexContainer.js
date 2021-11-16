@@ -3,10 +3,10 @@ import styled from "styled-components";
 
 import Display from "../display/Display";
 import List from "../list/List";
-import  { FavouritesProvider } from "../../data/favouritesProvider";
+import  { FavouritesProvider } from "../../providers/favouritesProvider";
 
 const Container = styled.div`
-  background-color: coral;
+  background-color: ${props => props.theme.colors.background.primary};
   overflow: scroll;
 `;
 
