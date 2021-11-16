@@ -1,7 +1,8 @@
 import { FavouritesProvider} from "./favouritesProvider";
 import { ListProvider } from "./listProvider";
 import {createGlobalStyle, ThemeProvider} from "styled-components";
-import { theme } from '../theme/theme'
+import * as theme from '../theme/theme'
+import {useState} from "react";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -10,11 +11,15 @@ const GlobalStyle = createGlobalStyle`
 `
 
 export const GlobalProvider = ({children}) => {
+    const [currentTheme, setCurrentTheme] = useState('light')
+
+
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme[currentTheme]}>
             <GlobalStyle />
             <FavouritesProvider>
                 <ListProvider>
+                    <button onClick={() => {setCurrentTheme(currentTheme === "light" ? "dark" : "light")}}>Click</button>
                     {children}
                 </ListProvider>
             </FavouritesProvider>

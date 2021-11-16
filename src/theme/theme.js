@@ -1,4 +1,9 @@
-export const theme = {
+const theme = {
+    borderRadius: '10px;'
+};
+
+export const dark = {
+    ...theme,
     colors: {
         background: {
             primary: '#1e1a24',
@@ -12,5 +17,21 @@ export const theme = {
         icon: '#FFF',
         borderColor: '#601cc7'
     },
-    borderRadius: '10px;'
-}
+};
+
+export const light = {
+    ...theme,
+    colors: {
+        background: {
+            primary: '#FFF',
+            secondary: '#7e3de0',
+            tertiary: '#601cc7'
+        },
+        foreground: {
+            onBackground: '#000',
+            onSurface: '#222'
+        },
+        icon: '#000',
+        borderColor: '#601cc7'
+    },
+};
