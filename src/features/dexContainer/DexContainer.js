@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import Display from "../display/Display";
 import List from "../list/List";
-import  { FavouritesProvider } from "../../providers/favouritesProvider";
+import  { FavouritesProvider } from "../../providers/FavouritesProvider";
 
 const Container = styled.div`
   background-color: ${props => props.theme.colors.background.primary};

@@ -3,7 +3,8 @@ import Menu from './features/menu/Menu'
 import DexContainer from "./features/dexContainer/DexContainer";
 import styled from "styled-components";
 import { BrowserRouter as Router } from "react-router-dom";
-import GlobalProvider from "./providers/globalProvider";
+import GlobalProvider from "./providers/GlobalProvider";
+import ThemeToggle from "./features/themeToggle/ThemeToggle";
 
 const NavContainer = styled.div`
   position: sticky;
@@ -25,8 +26,14 @@ const App = () => {
           <Router>
               <div className="App">
                   <NavContainer>
-                      <Title >Pokédex</Title>
-                      <Menu />
+                      <div>
+                          <Title >Pokédex</Title>
+                          <Menu />
+                      </div>
+
+                      <ThemeToggle
+
+                      />
                   </NavContainer>
                   <DexContainer />
               </div>

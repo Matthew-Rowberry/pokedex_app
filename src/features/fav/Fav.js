@@ -1,7 +1,7 @@
 import {AiFillHeart, AiOutlineHeart} from "react-icons/ai";
 import styled from "styled-components";
 import {useContext} from "react";
-import {FavouritesContext} from "../../providers/favouritesProvider";
+import {FavouritesContext} from "../../providers/FavouritesProvider";
 
 const FavContainer = styled.div`
   > * {
@@ -17,7 +17,6 @@ const FavContainer = styled.div`
 
 export const Fav = (props) => {
     const favContext = useContext(FavouritesContext)
-
 
     return (
         <FavContainer>
