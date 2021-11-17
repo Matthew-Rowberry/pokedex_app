@@ -1,3 +1,4 @@
+import React from "react";
 import { FavouritesProvider} from "./FavouritesProvider";
 import { ListProvider } from "./ListProvider";
 import {createGlobalStyle, ThemeProvider} from "styled-components";
@@ -6,11 +7,11 @@ import ContextThemeProvider from "./ContextThemeProvider";
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background-color: ${props => (props.theme.colors.background.primary)};
+    background-color: ${props => (props.theme.colors.background)};
   }
 `
 
-export const GlobalProvider = ({children}) => {
+export const GlobalProvider: React.FC = ({children}) => {
     return (
         <ContextThemeProvider>
             {(theme) => {
