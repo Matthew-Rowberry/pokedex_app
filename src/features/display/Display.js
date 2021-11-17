@@ -52,7 +52,6 @@ const Display = () => {
     const { loading, data, fetch } = useBaseEntity(params.category, params.name);
 
     const detailsResponse = useSpecies(params.name);
-    console.log(detailsResponse)
     const flavorText = detailsResponse.response?.flavor_text_entries.filter((entry => entry.language.name === 'en'))
 
     useEffect(() => {
