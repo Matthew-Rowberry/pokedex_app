@@ -3,7 +3,7 @@ import {useEffect} from "react";
 import {NavLink, useParams} from "react-router-dom";
 import {useBaseEntity} from "../../hooks/useListProvider";
 import Fav from '../fav/Fav'
-import typeColors from "../../data/types";
+import typeColors from "../../data/typeStrings";
 import Bounce from "../Bounce";
 
 const ListEntityContainer = styled.div`
@@ -122,17 +122,6 @@ const Entity = (props) => {
 
     const displayName = data.name.replace(/-/g, " ");
     const displayNumber = ('00' + data.id).slice(-3)
-    let imgURL;
-    switch (params.category) {
-        case 'pokemon': {
-            imgURL = data.sprites?.versions["generation-viii"].icons.front_default;
-            break;
-        }
-        default: {
-            imgURL = data.sprites?.default;
-            break;
-        }
-    }
 
     if(params.category !== "pokemon") {
         return (
@@ -141,9 +130,9 @@ const Entity = (props) => {
                     <ListEntity>
                         <Name>{displayName}</Name>
                         <StyledBounce category={params.category}>
-                            <Icon src={imgURL} alt={data.name}/>
+                            <Icon src={data.sprite} alt={data.name}/>
                         </StyledBounce>
-                        <Overlay category={params.category} src={imgURL} alt={data.name}/>
+                        <Overlay category={params.category} src={data.sprite} alt={data.name}/>
                     </ListEntity>
                 </Inset>
                 <Fav
@@ -163,7 +152,7 @@ const Entity = (props) => {
                         <Name>{displayName}</Name>
                         <StyledBounce category={params.category}>
                             <Bounce>
-                                <Icon category={params.category} src={imgURL} alt={data.name}/>
+                                <Icon category={params.category} src={data.sprite} alt={data.name}/>
                             </Bounce>
                         </StyledBounce>
                         <Number>#{displayNumber}</Number>

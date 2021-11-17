@@ -1,10 +1,36 @@
 import React, {useState} from "react";
 import axios from "axios";
+import {EntityType, IPokemon, IItem} from "../data/type";
+import {getEntity, getEntityList} from '../data/api'
 
-export const ListContext = React.createContext();
+interface IListInit<T> {
+    list: string[];
+    data: {
+        [key:string]: T
+    };
+    loading: {
+        [key:string]: boolean;
+    };
+    loadingList: boolean;
+    offset: number;
+}
 
-export const ListProvider = ({children}) => {
-    const [state, updateState] = useState({
+interface IListState {
+    pokemon: IListInit<IPokemon>,
+    item: IListInit<IItem>
+}
+
+interface IListContext extends IListState {
+    nextPage: (key: EntityType) => void ,
+    getEntityById: (key: EntityType, id: string) => void
+}
+
+export const ListContext = React.createContext<IListContext>(
+    {} as IListContext
+);
+
+export const ListProvider: React.FC = ({children}) => {
+    const [state, updateState] = useState<IListState>({
         pokemon: {
             list: [],
             data: {},
@@ -21,7 +47,7 @@ export const ListProvider = ({children}) => {
         }
     })
 
-    const nextPage = async (key) => {
+    const nextPage = async (key: EntityType) => {
         if(state[key].loadingList) return;
 
         updateState({
@@ -32,20 +58,20 @@ export const ListProvider = ({children}) => {
             }
         })
 
-        const res = await axios.get(`https://pokeapi.co/api/v2/${key}?limit=30&offset=${state[key].offset}`);
+        const res = await getEntityList(key, state[key].offset)
 
         updateState(prevState => ({
             ...prevState,
             [key]: {
                 ...prevState[key],
                 offset: prevState[key].offset + 30,
-                list: [...prevState[key].list, ...res.data.results.map(entity => entity.name)],
+                list: [...prevState[key].list, ...res],
                 loadingList: false,
             }
         }))
     }
 
-    const getEntityById = async (key, id) => {
+    const getEntityById = async (key: EntityType, id: string) => {
         if(state[key].loading[id]) return;
 
         updateState({
@@ -59,14 +85,15 @@ export const ListProvider = ({children}) => {
             }
         })
 
-        const res = await axios.get(`https://pokeapi.co/api/v2/${key}/${id}`);
+        const res = await getEntity(key, id)
+
         updateState(prevState => ({
             ...prevState,
             [key]: {
                 ...prevState[key],
                 data: {
                     ...prevState[key].data,
-                    [id]: res.data
+                    [id]: res
                 },
                 loading: {
                     ...prevState[key].loading,
