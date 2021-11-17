@@ -14,18 +14,6 @@ const Bounce = ({children}) => {
         from: { translateY: 0 },
     }))
 
-    // const styles = useSpring({
-    //     config: {
-    //         // mass: 5,
-    //         // tension: 200,
-    //     },
-    //     loop: {
-    //         reverse: true
-    //     },
-    //     from: { translateY: 0 },
-    //     to: { translateY: -5 },
-    // })
-
     return (
         <Spring style={styles}
             onMouseEnter={() => {
