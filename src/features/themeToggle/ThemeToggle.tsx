@@ -29,7 +29,7 @@ const ContainerFiller = styled.div`
   justify-content: center;
 `;
 
-const ThemeToggle = () => {
+const ThemeToggle: React.FC = () => {
     const themeContext = useContext(ThemeToggleContext);
 
     const styles = useSpring({
