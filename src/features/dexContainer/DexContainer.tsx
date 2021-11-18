@@ -1,8 +1,7 @@
+import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 import styled from "styled-components";
 
-import Display from "../display/Display";
-import List from "../list/List";
 import  { FavouritesProvider } from "../../providers/FavouritesProvider";
 import ParamsChecker from "../paramChecker/ParamChecker";
 
@@ -18,21 +17,21 @@ const ScrollingDex = styled.div`
   box-sizing: border-box;
 `;
 
-const DexContainer = () => {
+const DexContainer: React.FC = () => {
     return (
         <FavouritesProvider>
             <Container>
                 <Routes>
-                    <Route exact path='/:category/:name' element={
+                    <Route path='/:category/:name' element={
                         <ParamsChecker />
                     }/>
-                    <Route exact path='/:category' element={
+                    <Route path='/:category' element={
                         <ScrollingDex>
                             <ParamsChecker />
                         </ScrollingDex>
                     }/>
 
-                    <Route exact path="/" element= {
+                    <Route path="/" element= {
                         <Navigate to="/pokemon" />
                     }/>
                 </Routes>

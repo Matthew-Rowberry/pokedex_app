@@ -11,7 +11,7 @@ interface IFavouriteState {
 }
 
 interface IFavouriteContext extends IFavouriteState {
-    updateFavourite: (key: EntityType, id: string) => void
+    updateFavourite: (key: EntityType, id: number) => void
 }
 
 export const FavouritesContext = React.createContext<IFavouriteContext>(
@@ -24,7 +24,7 @@ export const FavouritesProvider: React.FC = ({children}) => {
         item: {}
     })
 
-    const updateFavourite = (key: EntityType, id: string) => {
+    const updateFavourite = (key: EntityType, id: number) => {
         setFavourites(prevState => ({
             ...prevState,
             [key]: {
