@@ -16,17 +16,14 @@ const Bounce = ({children}) => {
     return (
         <Spring style={styles}
             onMouseEnter={() => {
-                console.log(styles)
                 api.start({
                     loop: {
                         reverse: true
                     },
                     to: { translateY: -10 },
                 })
-                console.log(styles)
             }}
             onMouseLeave={() => {
-                console.log(2)
                 api.stop()
             }}
         >
