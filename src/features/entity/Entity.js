@@ -4,7 +4,7 @@ import {NavLink, useParams} from "react-router-dom";
 import {useBaseEntity} from "../../hooks/useListProvider";
 import Fav from '../fav/Fav'
 import typeColors from "../../data/typeStrings";
-import Bounce from "../Bounce";
+import Bounce from "../Bounce/Bounce";
 
 const ListEntityContainer = styled.div`
   color: floralwhite;

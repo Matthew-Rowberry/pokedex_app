@@ -7,24 +7,26 @@ const Spring = styled(animated.div)`
 const Bounce = ({children}) => {
     const [styles, api] = useSpring(() => ({
         config: {
-            mass: 5,
-            tension: 200,
+            clamp: true,
+            velocity: 1
         },
-        loop: false,
         from: { translateY: 0 },
     }))
 
     return (
         <Spring style={styles}
             onMouseEnter={() => {
+                console.log(styles)
                 api.start({
-                    to: { translateY: -10 },
                     loop: {
                         reverse: true
-                    }
+                    },
+                    to: { translateY: -10 },
                 })
+                console.log(styles)
             }}
             onMouseLeave={() => {
+                console.log(2)
                 api.stop()
             }}
         >

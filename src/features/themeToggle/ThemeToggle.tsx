@@ -27,6 +27,10 @@ const ContainerFiller = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  > img {
+      user-select: none
+  }
 `;
 
 const ThemeToggle: React.FC = () => {
