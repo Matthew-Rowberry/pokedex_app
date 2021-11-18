@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Display from "../display/Display";
 import List from "../list/List";
 import  { FavouritesProvider } from "../../providers/FavouritesProvider";
+import ParamsChecker from "../paramChecker/ParamChecker";
 
 const Container = styled.div`
   background-color: ${props => props.theme.colors.background.primary};
@@ -23,11 +24,11 @@ const DexContainer = () => {
             <Container>
                 <Routes>
                     <Route exact path='/:category/:name' element={
-                        <Display />
+                        <ParamsChecker />
                     }/>
                     <Route exact path='/:category' element={
                         <ScrollingDex>
-                            <List />
+                            <ParamsChecker />
                         </ScrollingDex>
                     }/>
 

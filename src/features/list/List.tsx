@@ -1,9 +1,14 @@
 import Entity from "../entity/Entity";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import { useListProvider } from "../../hooks/useListProvider";
 import { useInView } from 'react-intersection-observer';
 import styled from "styled-components";
+import {EntityType} from "../../data/type";
+
+interface IParamProps {
+    category: EntityType
+}
 
 const GridView = styled.div`
   width: 100%;
@@ -13,24 +18,22 @@ const GridView = styled.div`
   gap: 1em;
 `;
 
-const List = () => {
-    let params = useParams()
+const List: React.FC<IParamProps> = (props) => {
     const context = useListProvider()
 
-    const { ref, inView, entry } = useInView({
-        /* Optional options */
+    const { ref, inView } = useInView({
         threshold: 0,
         trackVisibility: true,
         delay: 100,
     });
 
     useEffect(() => {
-        if(inView && !context[params.category].loadingList) context.nextPage(params.category)
-    }, [inView, !context[params.category].loadingList])
+        if(inView && !context[props.category].loadingList) context.nextPage(props.category)
+    }, [inView, !context[props.category].loadingList])
 
     return (
         <GridView>
-            {context[params.category].list.map(dexEntityName => {
+            {context[props.category].list.map((dexEntityName:string) => {
                 return (
                     <Entity
                         entityName={dexEntityName}
@@ -40,7 +43,7 @@ const List = () => {
             })}
 
             {/*Insert loading icon here*/}
-            {/*{context[params.category].loadingList && <h1>Loading</h1>}*/}
+            {/*{context[props.category].loadingList && <h1>Loading</h1>}*/}
             <span ref={ref} style={{"width":"100%", "display":"block"}} />
         </GridView>
     )

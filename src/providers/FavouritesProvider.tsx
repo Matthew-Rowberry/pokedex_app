@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-
-type EntityType = "pokemon" | "item";
+import { EntityType } from "../data/type";
 
 interface IFavouriteKeys {
     [key:string]: boolean

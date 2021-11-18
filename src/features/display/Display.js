@@ -47,7 +47,7 @@ const useSpecies = (id) => {
     return { response, loading };
 }
 
-const Display = () => {
+const Display = (props) => {
     let params  = useParams();
     const { loading, data, fetch } = useBaseEntity(params.category, params.name);
 
@@ -58,25 +58,11 @@ const Display = () => {
         if(!data && !loading) fetch()
     }, [])
 
-    let imgURL;
-    if(data) {
-        switch (params.category) {
-            case 'pokemon': {
-                imgURL = data.sprites?.other['official-artwork'].front_default;
-                break;
-            }
-            default: {
-                imgURL = data.sprites?.default;
-                break;
-            }
-        }
-    }
-
     if(loading || detailsResponse.loading || !detailsResponse.response || !data ) return <h1>Loading Display</h1>
 
     return (
         <Container>
-            <Portrait src={imgURL} alt={data.name} />
+            <Portrait src={data.artwork} alt={data.name} />
             <Details>
                 <p>Name: {data.name}</p>
                 <p>#{data.id}</p>

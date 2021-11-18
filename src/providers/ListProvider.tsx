@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import axios from "axios";
 import {EntityType, IPokemon, IItem} from "../data/type";
 import {getEntity, getEntityList} from '../data/api'
 

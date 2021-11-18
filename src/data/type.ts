@@ -14,8 +14,10 @@ export interface IPokemon extends IEntity{
     height: number;
     weight: number;
     abilities: {
-        name: string,
-        hidden: boolean
+        ability: {
+            name: string
+        };
+        is_hidden: boolean
     }[];
     types: {
         slot: number,
