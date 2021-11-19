@@ -1,8 +1,14 @@
 import {useParams} from "react-router-dom";
 import {useEffect} from "react";
-import {useBaseEntity} from "../../hooks/useListProvider";
+import {useBaseEntity, usePokemon} from "../../hooks/useListProvider";
 import useAxios from "../../hooks/useAxios";
 import styled from "styled-components";
+import {EntityType} from "../../data/type";
+
+interface IComponentProps {
+    category: EntityType
+    name: string
+}
 
 const Container = styled.div`
     display: grid;
@@ -38,7 +44,7 @@ const GameTitle = styled.p`
   color: black;
 `;
 
-const useSpecies = (id) => {
+const useSpecies = (id: string) => {
     const { response, loading} = useAxios({
         method: 'get',
         url: `/pokemon-species/${id}`,
@@ -47,11 +53,10 @@ const useSpecies = (id) => {
     return { response, loading };
 }
 
-const Display = (props) => {
-    let params  = useParams();
-    const { loading, data, fetch } = useBaseEntity(params.category, params.name);
+const Display: React.FC<IComponentProps> = (props) => {
+    const { loading, data, fetch } = usePokemon(props.name);
 
-    const detailsResponse = useSpecies(params.name);
+    const detailsResponse = useSpecies(props.name);
     const flavorText = detailsResponse.response?.flavor_text_entries.filter((entry => entry.language.name === 'en'))
 
     useEffect(() => {

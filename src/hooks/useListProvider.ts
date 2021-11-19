@@ -1,13 +1,21 @@
 import { useContext } from "react";
 import { ListContext } from "../providers/ListProvider";
 
-import {EntityType} from "../data/type";
+import {EntityType, IItem, IPokemon} from "../data/type";
+
+interface IReturnObject<T> {
+    data: T
+    loading: boolean;
+    fetch: () => void
+}
 
 export const useListProvider = () => {
     return useContext(ListContext);
 }
 
-export const useBaseEntity = (key: EntityType, id: string) => {
+export function useBaseEntity(key: 'pokemon', id: string):IReturnObject<IPokemon>;
+export function useBaseEntity(key: 'item', id: string):IReturnObject<IItem>;
+export function useBaseEntity(key: EntityType, id: string) {
     const context = useListProvider();
     const data = context[key].data[id];
     const loading = context[key].loading[id];
@@ -18,7 +26,7 @@ export const useBaseEntity = (key: EntityType, id: string) => {
         data,
         loading,
         fetch
-    };
+    }
 }
 
 export const usePokemon = (id: string) => {

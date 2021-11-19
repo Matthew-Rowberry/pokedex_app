@@ -36,6 +36,7 @@ const List: React.FC<IParamProps> = (props) => {
             {context[props.category].list.map((dexEntityName:string) => {
                 return (
                     <Entity
+                        category={props.category}
                         entityName={dexEntityName}
                         key={dexEntityName}
                     />

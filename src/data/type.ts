@@ -7,6 +7,7 @@ interface IEntity {
 }
 
 export interface IItem extends IEntity {
+
 }
 
 export interface IPokemon extends IEntity{

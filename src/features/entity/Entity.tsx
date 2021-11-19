@@ -5,8 +5,19 @@ import {useBaseEntity} from "../../hooks/useListProvider";
 import Fav from '../fav/Fav'
 import typeColors from "../../data/typeStrings";
 import Bounce from "../bounce/Bounce";
+import {EntityType} from "../../data/type";
 
-const ListEntityContainer = styled.div`
+interface IComponentProps {
+    entityName: string;
+    category: EntityType;
+}
+
+interface ITypes {
+    key: number;
+    types?: string[];
+}
+
+const ListEntityContainer =  styled.div<ITypes>`
   color: floralwhite;
   width: 100%;
   position: relative;
@@ -64,11 +75,11 @@ const Name = styled.p`
   padding: 5px;
 `
 
-const Icon = styled.img`
+const Icon = styled.img<{ category?: EntityType }>`
   width: 100%;
 `;
 
-const Overlay = styled.img`
+const Overlay = styled.img<{ category: EntityType }>`
   width: 200%;
   position: absolute;
   inset: -50% 0 0 -50%;
@@ -89,7 +100,7 @@ const Number = styled.p`
   font-style: italic;
 `;
 
-const StyledBounce = styled.div`
+const StyledBounce = styled.div<{category: EntityType}>`
   width: ${props => props.category !== "pokemon" ? "50%" : "100%"};
   font-size: 0;
   position: absolute;
@@ -100,9 +111,8 @@ const StyledBounce = styled.div`
   transition: filter 0.2s ease 0s;
 `;
 
-const Entity = (props) => {
-    const params = useParams();
-    const { loading, data, fetch } = useBaseEntity(params.category, props.entityName);
+const Entity: React.FC<IComponentProps> = (props) => {
+    const { loading, data, fetch } = useBaseEntity(props.category, props.entityName);
 
     useEffect(() => {
         if(!data) fetch()
@@ -123,20 +133,20 @@ const Entity = (props) => {
     const displayName = data.name.replace(/-/g, " ");
     const displayNumber = ('00' + data.id).slice(-3)
 
-    if(params.category !== "pokemon") {
+    if(props.category !== "pokemon") {
         return (
             <ListEntityContainer key={data.id}>
                 <Inset>
                     <ListEntity>
                         <Name>{displayName}</Name>
-                        <StyledBounce category={params.category}>
+                        <StyledBounce category={props.category}>
                             <Icon src={data.sprite} alt={data.name}/>
                         </StyledBounce>
-                        <Overlay category={params.category} src={data.sprite} alt={data.name}/>
+                        <Overlay category={props.category} src={data.sprite} alt={data.name}/>
                     </ListEntity>
                 </Inset>
                 <Fav
-                    category={params.category}
+                    category={props.category}
                     id={data.id}
                 />
             </ListEntityContainer>
@@ -146,13 +156,13 @@ const Entity = (props) => {
     const types = data.types.map((typeEntry) => typeEntry.type.name)
     return (
         <ListEntityContainer types={types}  key={data.id}>
-            <NavLink to={`/${[params.category]}/${data.name}`}>
+            <NavLink to={`/${[props.category]}/${data.name}`}>
                 <Inset>
                     <ListEntity>
                         <Name>{displayName}</Name>
-                        <StyledBounce category={params.category}>
+                        <StyledBounce category={props.category}>
                             <Bounce>
-                                <Icon category={params.category} src={data.sprite} alt={data.name}/>
+                                <Icon category={props.category} src={data.sprite} alt={data.name}/>
                             </Bounce>
                         </StyledBounce>
                         <Number>#{displayNumber}</Number>
@@ -160,7 +170,7 @@ const Entity = (props) => {
                 </Inset>
             </NavLink>
             <Fav
-                category={params.category}
+                category={props.category}
                 id={data.id}
             />
         </ListEntityContainer>
