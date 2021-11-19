@@ -9,23 +9,23 @@ const Bounce: React.FC = ({children}) => {
     const [styles, api] = useSpring(() => ({
         config: {
             clamp: true,
-            velocity: 1
+            friction: 20,
         },
         from: { translateY: 0 },
+        to: { translateY: -10 },
+        loop: {
+            reverse: true
+        },
+        pause: true
     }))
 
     return (
         <Spring style={styles}
             onMouseEnter={() => {
-                api.start({
-                    loop: {
-                        reverse: true
-                    },
-                    to: { translateY: -10 },
-                })
+                api.start({pause: false})
             }}
             onMouseLeave={() => {
-                api.stop()
+                api.pause()
             }}
         >
             {children}
