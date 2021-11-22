@@ -8,7 +8,8 @@ const ToggleContainer = styled.div`
   width: 75px;
   height: 75px;
   border-radius: 10px;
-  border: 1px solid black;
+  //border: 1px solid black;
+  border-bottom: 1px solid black;
   overflow: hidden;
   position: relative;
   cursor: pointer;
@@ -27,9 +28,13 @@ const ContainerFiller = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  > img {
+      user-select: none
+  }
 `;
 
-const ThemeToggle = () => {
+const ThemeToggle: React.FC = () => {
     const themeContext = useContext(ThemeToggleContext);
 
     const styles = useSpring({

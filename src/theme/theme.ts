@@ -1,5 +1,7 @@
+import 'styled-components';
+
 const theme = {
-    borderRadius: '10px;'
+    borderRadius: '10px;',
 };
 
 export const dark = {
@@ -35,3 +37,22 @@ export const light = {
         borderColor: '#601cc7'
     },
 };
+
+declare module "styled-components" {
+    export interface DefaultTheme {
+        borderRadius: string;
+        colors: {
+            background: {
+                primary: string;
+                secondary: string;
+                tertiary: string;
+            },
+            foreground: {
+                onBackground: string;
+                onSurface: string;
+            },
+            icon: string;
+            borderColor: string;
+        },
+    }
+}

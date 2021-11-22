@@ -1,7 +1,12 @@
+import React from "react";
 import {NavLink, useLocation} from "react-router-dom";
 import styled from "styled-components";
 import {animated, useSpring, config} from "react-spring";
 import usePrevious from "../../hooks/usePrevious";
+
+interface INavigationTabs {
+    tabs: number
+}
 
 const Navigation = styled.nav`
   width: fit-content;
@@ -20,7 +25,7 @@ const MenuItem = styled(NavLink)`
     z-index: 3
 `;
 
-const SpringTab = styled(animated.div)`
+const SpringTab = styled(animated.div)<INavigationTabs>`
   background-color: ${props => props.theme.colors.background.tertiary};
   border-radius: ${props => props.theme.borderRadius};
   position: absolute;
@@ -41,7 +46,7 @@ const paths = [
     }
 ];
 
-const Menu = () => {
+const Menu: React.FC = () => {
     const location = useLocation();
     const index = paths.findIndex((path) => {
         const currentLocation = location.pathname.split('/')[1];

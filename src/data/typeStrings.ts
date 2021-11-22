@@ -1,4 +1,8 @@
-const typeColors = {
+interface ITypeStrings {
+    [key:string]: string
+}
+
+const typeColors: ITypeStrings = {
     normal: '#A8A77A',
     fire: '#EE8130',
     water: '#6390F0',

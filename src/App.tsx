@@ -1,4 +1,5 @@
 import './App.css';
+import React from "react";
 import Menu from './features/menu/Menu'
 import DexContainer from "./features/dexContainer/DexContainer";
 import styled from "styled-components";
@@ -31,10 +32,10 @@ const ToggleContainer = styled.div`
 const Title = styled.h1`
   font-size: 1.5em;
   text-align: center;
-  color: ${props => props.theme.colors.foreground.primary}
+  color: ${props => props.theme.colors.foreground.onBackground}
 `;
 
-const App = () => {
+const App: React.FC = () => {
   return (
       <GlobalProvider>
           <Router>
