@@ -1,7 +1,5 @@
 import { useContext } from "react";
-import { ListContext } from "../providers/ListProvider";
-
-import {EntityType, IItem, IPokemon} from "../data/type";
+import {IListState, ListContext} from "../providers/ListProvider";
 
 interface IReturnObject<T> {
     data: T
@@ -13,18 +11,20 @@ export const useListProvider = () => {
     return useContext(ListContext);
 }
 
-export function useBaseEntity(key: 'pokemon', id: string):IReturnObject<IPokemon>;
-export function useBaseEntity(key: 'item', id: string):IReturnObject<IItem>;
-export function useBaseEntity(key: EntityType, id: string) {
+export function useBaseEntity<
+    K extends keyof IListState,
+    V extends keyof IListState[K]['data'],
+    >(key: K, id: V): IReturnObject<IListState[K]['data'][V]> {
     const context = useListProvider();
-    const data = context[key].data[id];
-    const loading = context[key].loading[id];
-
+    const state = context.state;
+    const data: IListState[K]['data'] = state[key].data;
+    const loading: IListState[K]['loading'] = state[key].loading;
+    // @ts-ignore
     const fetch = () => context.getEntityById(key, id);
 
     return {
-        data,
-        loading,
+        data: data[id],
+        loading: loading[id],
         fetch
     }
 }

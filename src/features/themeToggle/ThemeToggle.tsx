@@ -8,7 +8,8 @@ const ToggleContainer = styled.div`
   width: 75px;
   height: 75px;
   border-radius: 10px;
-  border: 1px solid black;
+  //border: 1px solid black;
+  border-bottom: 1px solid black;
   overflow: hidden;
   position: relative;
   cursor: pointer;

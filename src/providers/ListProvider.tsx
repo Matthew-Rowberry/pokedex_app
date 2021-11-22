@@ -4,9 +4,7 @@ import {getEntity, getEntityList} from '../data/api'
 
 interface IListInit<T> {
     list: string[];
-    data: {
-        [key:string]: T
-    };
+    data: Record<string, T>
     loading: {
         [key:string]: boolean;
     };
@@ -14,14 +12,15 @@ interface IListInit<T> {
     offset: number;
 }
 
-interface IListState {
+export interface IListState {
     pokemon: IListInit<IPokemon>,
     item: IListInit<IItem>
 }
 
-interface IListContext extends IListState {
+interface IListContext {
     nextPage: (key: EntityType) => void ,
-    getEntityById: (key: EntityType, id: string) => void
+    getEntityById: (key: EntityType, id: string) => void,
+    state: IListState,
 }
 
 export const ListContext = React.createContext<IListContext>(
@@ -105,7 +104,7 @@ export const ListProvider: React.FC = ({children}) => {
 
 
     return (
-        <ListContext.Provider value={{...state, nextPage, getEntityById}}>
+        <ListContext.Provider value={{state, nextPage, getEntityById}}>
             {children}
         </ListContext.Provider>
     )

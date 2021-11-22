@@ -28,12 +28,12 @@ const List: React.FC<IParamProps> = (props) => {
     });
 
     useEffect(() => {
-        if(inView && !context[props.category].loadingList) context.nextPage(props.category)
-    }, [inView, !context[props.category].loadingList])
+        if(inView && !context.state[props.category].loadingList) context.nextPage(props.category)
+    }, [inView, !context.state[props.category].loadingList])
 
     return (
         <GridView>
-            {context[props.category].list.map((dexEntityName:string) => {
+            {context.state[props.category].list.map((dexEntityName:string) => {
                 return (
                     <Entity
                         category={props.category}

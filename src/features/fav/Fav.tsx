@@ -24,8 +24,6 @@ const FavContainer = styled.div`
 
 export const Fav: React.FC<IParamProps> = (props) => {
     const favContext = useContext(FavouritesContext)
-    console.log(props)
-
     return (
         <FavContainer>
             {favContext[props.category][props.id] ?
