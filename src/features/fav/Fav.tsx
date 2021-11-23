@@ -1,12 +1,12 @@
 import {AiFillHeart, AiOutlineHeart} from "react-icons/ai";
 import styled from "styled-components";
-import React, {useContext} from "react";
-import {FavouritesContext} from "../../providers/FavouritesProvider";
+import React from "react";
 import {EntityType} from "../../data/type";
+import useFavourite from "../../hooks/useFavourite";
 
 interface IParamProps {
     category: EntityType,
-    id: number
+    name: string
 }
 
 
@@ -23,13 +23,13 @@ const FavContainer = styled.div`
 `;
 
 export const Fav: React.FC<IParamProps> = (props) => {
-    const favContext = useContext(FavouritesContext)
+    const favourite = useFavourite(props.category, props.name)
     return (
         <FavContainer>
-            {favContext[props.category][props.id] ?
-                <AiFillHeart onClick={() => {favContext.updateFavourite(props.category, props.id)}} fill={"#AB3433"}/>
+            {favourite.value ?
+                <AiFillHeart onClick={favourite.toggle} fill={"#AB3433"}/>
                 :
-                <AiOutlineHeart onClick={() => {favContext.updateFavourite(props.category, props.id)}}/>
+                <AiOutlineHeart onClick={favourite.toggle}/>
             }
         </FavContainer>
     )

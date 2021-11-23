@@ -3,7 +3,7 @@ import { increment as incrementAction, decrement as decrementAction } from "../s
 import {RootState} from "../store/store";
 
 const useCounter = () => {
-    const value = useSelector((state: RootState) => state.value)
+    const value = useSelector((state: RootState) => state.counter.value)
     const dispatch = useDispatch()
 
     const increment = () => {

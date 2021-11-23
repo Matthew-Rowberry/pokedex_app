@@ -148,7 +148,7 @@ const Entity: React.FC<IComponentProps> = (props) => {
                 </Inset>
                 <Fav
                     category={props.category}
-                    id={data.id}
+                    name={data.name}
                 />
             </ListEntityContainer>
         )
@@ -174,7 +174,7 @@ const Entity: React.FC<IComponentProps> = (props) => {
             </NavLink>
             <Fav
                 category={props.category}
-                id={data.id}
+                name={data.name}
             />
         </ListEntityContainer>
     )

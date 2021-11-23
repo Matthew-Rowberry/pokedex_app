@@ -21,11 +21,11 @@ export const GlobalProvider: React.FC = ({children}) => {
                     return (
                         <ThemeProvider theme={themeStyles[theme]}>
                             <GlobalStyle />
-                            <FavouritesProvider>
+                            {/*<FavouritesProvider>*/}
                                 <ListProvider>
                                     {children}
                                 </ListProvider>
-                            </FavouritesProvider>
+                            {/*</FavouritesProvider>*/}
                         </ThemeProvider>
                     )
                 }}
