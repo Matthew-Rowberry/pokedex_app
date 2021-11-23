@@ -4,6 +4,8 @@ import { ListProvider } from "./ListProvider";
 import {createGlobalStyle, ThemeProvider} from "styled-components";
 import * as themeStyles from '../theme/theme'
 import ContextThemeProvider from "./ContextThemeProvider";
+import { store } from "../store/store";
+import { Provider } from "react-redux";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -13,20 +15,22 @@ const GlobalStyle = createGlobalStyle`
 
 export const GlobalProvider: React.FC = ({children}) => {
     return (
-        <ContextThemeProvider>
-            {(theme) => {
-                return (
-                    <ThemeProvider theme={themeStyles[theme]}>
-                        <GlobalStyle />
-                        <FavouritesProvider>
-                            <ListProvider>
-                                {children}
-                            </ListProvider>
-                        </FavouritesProvider>
-                    </ThemeProvider>
-                )
-            }}
-        </ContextThemeProvider>
+        <Provider store={store}>
+            <ContextThemeProvider>
+                {(theme) => {
+                    return (
+                        <ThemeProvider theme={themeStyles[theme]}>
+                            <GlobalStyle />
+                            <FavouritesProvider>
+                                <ListProvider>
+                                    {children}
+                                </ListProvider>
+                            </FavouritesProvider>
+                        </ThemeProvider>
+                    )
+                }}
+            </ContextThemeProvider>
+        </Provider>
     )
 }
 
