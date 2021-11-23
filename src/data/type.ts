@@ -28,3 +28,10 @@ export interface IPokemon extends IEntity{
         }
     }[]
 }
+
+export enum Status {
+    IDLE = 'idle',
+    FETCHING = 'fetching',
+    ERROR = 'error',
+    SUCCESS = 'success'
+}

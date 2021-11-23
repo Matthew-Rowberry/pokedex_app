@@ -1,5 +1,4 @@
 import React from "react";
-import { FavouritesProvider} from "./FavouritesProvider";
 import { ListProvider } from "./ListProvider";
 import {createGlobalStyle, ThemeProvider} from "styled-components";
 import * as themeStyles from '../theme/theme'

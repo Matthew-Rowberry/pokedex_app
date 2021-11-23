@@ -89,8 +89,6 @@ const transformRes = (res: IResponse):ISpecies => {
         entry.version.name= entry.version.name.replace(/-/g, " ");
         return entry
     })
-
-    console.log(species)
     return species
 }
 

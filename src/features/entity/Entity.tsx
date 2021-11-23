@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import {useEffect} from "react";
-import {NavLink, useParams} from "react-router-dom";
-import {useBaseEntity, usePokemon} from "../../hooks/useListProvider";
+import {NavLink} from "react-router-dom";
+import {useBaseEntity} from "../../hooks/useListProvider";
 import Fav from '../fav/Fav'
 import typeColors from "../../data/typeStrings";
 import Bounce from "../bounce/Bounce";

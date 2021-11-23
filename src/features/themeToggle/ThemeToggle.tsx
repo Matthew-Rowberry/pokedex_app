@@ -48,12 +48,12 @@ const ThemeToggle: React.FC = () => {
             <SpringTab style={styles}>
                 <ContainerFiller>
                     {/*<BsFillSunFill size={'60px'} fill={'#000'}/>*/}
-                    <img src={'https://cdn2.bulbagarden.net/upload/c/cb/Spr_5b_325.png'} />
+                    <img src={'https://cdn2.bulbagarden.net/upload/c/cb/Spr_5b_325.png'} alt='spoink'/>
                 </ContainerFiller>
 
                 <ContainerFiller>
                     {/*<BsFillMoonFill size={'60px'} fill={'#000'}/>*/}
-                    <img src={'https://cdn2.bulbagarden.net/upload/0/0f/Spr_5b_325_s.png'} />
+                    <img src={'https://cdn2.bulbagarden.net/upload/0/0f/Spr_5b_325_s.png'} alt='spoink shiny'/>
                 </ContainerFiller>
             </SpringTab>
         </ToggleContainer>

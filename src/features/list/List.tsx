@@ -1,10 +1,9 @@
 import Entity from "../entity/Entity";
 import React, {useEffect} from "react";
-import {useParams} from "react-router-dom";
-import { useListProvider } from "../../hooks/useListProvider";
-import { useInView } from 'react-intersection-observer';
+import {useInView} from 'react-intersection-observer';
 import styled from "styled-components";
-import {EntityType} from "../../data/type";
+import {EntityType, Status} from "../../data/type";
+import usePagination from "../../hooks/usePagination";
 
 interface IParamProps {
     category: EntityType
@@ -19,7 +18,7 @@ const GridView = styled.div`
 `;
 
 const List: React.FC<IParamProps> = (props) => {
-    const context = useListProvider()
+    const pagination = usePagination(props.category)
 
     const { ref, inView } = useInView({
         threshold: 0,
@@ -28,12 +27,14 @@ const List: React.FC<IParamProps> = (props) => {
     });
 
     useEffect(() => {
-        if(inView && !context.state[props.category].loadingList) context.nextPage(props.category)
-    }, [inView, !context.state[props.category].loadingList])
+        if(inView && pagination.value[props.category].status !== Status.FETCHING && !pagination.value[props.category].finishedLoading) {
+            pagination.getNextPage()
+        }
+    }, [inView, pagination.value[props.category].status])
 
     return (
         <GridView>
-            {context.state[props.category].list.map((dexEntityName:string) => {
+            {pagination.value[props.category].list.map((dexEntityName:string) => {
                 return (
                     <Entity
                         category={props.category}
