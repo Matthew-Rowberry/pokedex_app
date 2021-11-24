@@ -1,12 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
-import {useEffect} from "react";
 import {NavLink} from "react-router-dom";
-import {useBaseEntity} from "../../hooks/useListProvider";
 import Fav from '../fav/Fav'
 import typeColors from "../../data/typeStrings";
 import Bounce from "../bounce/Bounce";
-import {EntityType} from "../../data/type";
+import {EntityType, Status} from "../../data/type";
 import useEntity from "../../hooks/useEntity";
 
 interface IComponentProps {
@@ -114,15 +112,13 @@ const StyledBounce = styled.div<{category: EntityType}>`
 `;
 
 const Entity: React.FC<IComponentProps> = (props) => {
-    const { loading, data, fetch } = useBaseEntity(props.category, props.entityName);
-    const entity = useEntity(props.category, props.entityName)
+    const entity = useEntity(props.category, props.entityName);
 
     useEffect(() => {
-        entity.getEntityData()
-        if(!data) fetch()
+        if(!entity.value) entity.getEntityData()
     }, [])
 
-    if(!data || loading) {
+    if(!entity.value || entity.loading === Status.FETCHING) {
         return (
             <ListEntityHolder>
                 <Inset>
@@ -134,41 +130,44 @@ const Entity: React.FC<IComponentProps> = (props) => {
         );
     }
 
-    const displayName = data.name.replace(/-/g, " ");
-    const displayNumber = ('00' + data.id).slice(-3)
+    const displayName = entity.value.name.replace(/-/g, " ");
+    const displayNumber = ('00' + entity.value.id).slice(-3)
 
     if(props.category !== "pokemon") {
         return (
-            <ListEntityContainer key={data.id}>
+            <ListEntityContainer key={entity.value.id}>
                 <Inset>
                     <ListEntity>
                         <Name>{displayName}</Name>
                         <StyledBounce category={props.category}>
-                            <Icon src={data.sprite} alt={data.name}/>
+                            <Icon src={entity.value.sprite} alt={entity.value.name}/>
                         </StyledBounce>
-                        <Overlay category={props.category} src={data.sprite} alt={data.name}/>
+                        <Overlay category={props.category} src={entity.value.sprite} alt={entity.value.name}/>
                     </ListEntity>
                 </Inset>
                 <Fav
                     category={props.category}
-                    name={data.name}
+                    name={entity.value.name}
                 />
             </ListEntityContainer>
         )
     }
 
 
-    //@ts-ignore
-    const types = data.types.map((typeEntry) => typeEntry.type.name)
+    const types: string[] = [];
+    if("types" in entity.value) {
+        entity.value.types.forEach(type => types.push(type.type.name));
+    }
+
     return (
-        <ListEntityContainer types={types}  key={data.id}>
-            <NavLink to={`/${[props.category]}/${data.name}`}>
+        <ListEntityContainer types={types}  key={entity.value.id}>
+            <NavLink to={`/${[props.category]}/${entity.value.name}`}>
                 <Inset>
                     <ListEntity>
                         <Name>{displayName}</Name>
                         <StyledBounce category={props.category}>
                             <Bounce>
-                                <Icon category={props.category} src={data.sprite} alt={data.name}/>
+                                <Icon category={props.category} src={entity.value.sprite} alt={entity.value.name}/>
                             </Bounce>
                         </StyledBounce>
                         <Number>#{displayNumber}</Number>
@@ -177,7 +176,7 @@ const Entity: React.FC<IComponentProps> = (props) => {
             </NavLink>
             <Fav
                 category={props.category}
-                name={data.name}
+                name={entity.value.name}
             />
         </ListEntityContainer>
     )

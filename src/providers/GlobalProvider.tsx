@@ -1,5 +1,4 @@
 import React from "react";
-import { ListProvider } from "./ListProvider";
 import {createGlobalStyle, ThemeProvider} from "styled-components";
 import * as themeStyles from '../theme/theme'
 import ContextThemeProvider from "./ContextThemeProvider";
@@ -20,11 +19,7 @@ export const GlobalProvider: React.FC = ({children}) => {
                     return (
                         <ThemeProvider theme={themeStyles[theme]}>
                             <GlobalStyle />
-                            {/*<FavouritesProvider>*/}
-                                <ListProvider>
-                                    {children}
-                                </ListProvider>
-                            {/*</FavouritesProvider>*/}
+                            {children}
                         </ThemeProvider>
                     )
                 }}

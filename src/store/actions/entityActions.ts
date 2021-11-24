@@ -7,10 +7,11 @@ export enum EntityActions {
     SETERROR = 'species/setError',
 }
 
-export const loadEntity = (entity: EntityType) => ({
+export const loadEntity = (entity: EntityType, name: string) => ({
     type: EntityActions.GETENTITY,
     payload: {
-        entity
+        entity,
+        name
     }
 })
 
@@ -23,18 +24,22 @@ export const setEntity = (entity: EntityType, name: string, res: {}) => ({
     }
 })
 
-export const setError = () => ({
-    type: EntityActions.SETERROR
+export const setError = (entity: EntityType, name: string) => ({
+    type: EntityActions.SETERROR,
+    payload: {
+        entity,
+        name
+    }
 })
 
 export const requestGetEntity = (entity: EntityType, name: string) => {
     return async (dispatch: any) => {
-        dispatch(loadEntity(entity))
+        dispatch(loadEntity(entity, name))
         try {
             const res = await getEntity(entity, name)
             dispatch(setEntity(entity, name, res))
         } catch {
-            dispatch(setError());
+            dispatch(setError(entity, name));
         }
     }
 }

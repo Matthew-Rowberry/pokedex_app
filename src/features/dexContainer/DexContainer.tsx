@@ -2,7 +2,6 @@ import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 import styled from "styled-components";
 
-import  { FavouritesProvider } from "../../providers/FavouritesProvider";
 import ParamsChecker from "../paramChecker/ParamChecker";
 
 const Container = styled.div`
@@ -19,24 +18,22 @@ const ScrollingDex = styled.div`
 
 const DexContainer: React.FC = () => {
     return (
-        <FavouritesProvider>
-            <Container>
-                <Routes>
-                    <Route path='/:category/:name' element={
+        <Container>
+            <Routes>
+                <Route path='/:category/:name' element={
+                    <ParamsChecker />
+                }/>
+                <Route path='/:category' element={
+                    <ScrollingDex>
                         <ParamsChecker />
-                    }/>
-                    <Route path='/:category' element={
-                        <ScrollingDex>
-                            <ParamsChecker />
-                        </ScrollingDex>
-                    }/>
+                    </ScrollingDex>
+                }/>
 
-                    <Route path="/" element= {
-                        <Navigate to="/pokemon" />
-                    }/>
-                </Routes>
-            </Container>
-        </FavouritesProvider>
+                <Route path="/" element= {
+                    <Navigate to="/pokemon" />
+                }/>
+            </Routes>
+        </Container>
     )
 }
 

@@ -1,7 +1,5 @@
 import React from "react";
 import { useEffect} from "react";
-import { usePokemon} from "../../hooks/useListProvider";
-import useAxios from "../../hooks/useAxios";
 import styled from "styled-components";
 import {EntityType} from "../../data/type";
 import useSpecies from "../../hooks/useSpecies";
