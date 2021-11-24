@@ -4,11 +4,13 @@ import thunkMiddleware from 'redux-thunk'
 import counterReducer from "./reducers/counterReducer";
 import favouritesReducer from "./reducers/favouritesReducer";
 import paginationReducer from "./reducers/paginationReducer";
+import speciesReducer from "./reducers/speciesReducer";
 
 const rootReducer = combineReducers({
     counter: counterReducer,
     favourites: favouritesReducer,
-    pagination: paginationReducer
+    pagination: paginationReducer,
+    species: speciesReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -4,6 +4,7 @@ import { usePokemon} from "../../hooks/useListProvider";
 import useAxios from "../../hooks/useAxios";
 import styled from "styled-components";
 import {EntityType} from "../../data/type";
+import useSpecies from "../../hooks/useSpecies";
 
 interface IComponentProps {
     category: EntityType
@@ -67,83 +68,85 @@ const GameTitle = styled.p`
   color: black;
 `;
 
-const useSpecies = (id: string) => {
-    let {response, loading} = useAxios({
-        method: 'get',
-        url: `/pokemon-species/${id}`,
-    });
+// const useSpecies = (id: string) => {
+//     let {response, loading} = useAxios({
+//         method: 'get',
+//         url: `/pokemon-species/${id}`,
+//     });
+//
+//     return {
+//         response: response ? transformRes(response) : undefined,
+//         loading
+//     };
+// }
 
-    return {
-        response: response ? transformRes(response) : undefined,
-        loading
-    };
-}
-
-const transformRes = (res: IResponse):ISpecies => {
-    let species: ISpecies = {
-        flavor_text_entries: []
-    }
-
-    species.flavor_text_entries = res.flavor_text_entries.filter((entry => entry.language.name === 'en'))
-    species.flavor_text_entries = res.flavor_text_entries.map((entry) => {
-        entry.version.name= entry.version.name.replace(/-/g, " ");
-        return entry
-    })
-    return species
-}
+// const transformRes = (res: IResponse):ISpecies => {
+//     let species: ISpecies = {
+//         flavor_text_entries: []
+//     }
+//
+//     species.flavor_text_entries = res.flavor_text_entries.filter((entry => entry.language.name === 'en'))
+//     species.flavor_text_entries = res.flavor_text_entries.map((entry) => {
+//         entry.version.name= entry.version.name.replace(/-/g, " ");
+//         return entry
+//     })
+//     return species
+// }
 
 const Display: React.FC<IComponentProps> = (props) => {
-    const {loading, data, fetch} = usePokemon(props.name);
+    const species = useSpecies(props.category, props.name)
 
-    const detailsResponse = useSpecies(props.name);
+    // const {loading, data, fetch} = usePokemon(props.name);
+    // const detailsResponse = useSpecies(props.name);
     useEffect(() => {
-        if (!data && !loading) fetch()
+        species.getNewSpecies()
+        // if (!data && !loading) fetch()
     }, [])
 
-    if (loading || detailsResponse.loading || !detailsResponse.response || !data) return <h1>Loading Display</h1>
+    // if (loading || detailsResponse.loading || !detailsResponse.response || !data) return <h1>Loading Display</h1>
 
     return (
         <Container>
-            <Portrait src={data.artwork} alt={data.name}/>
-            <Details>
-                <p>Name: {data.name}</p>
-                <p>#{data.id}</p>
-                <p>Height: {data.height / 10} M</p>
-                <p>Weight: {data.weight / 10} Kg</p>
+            {/*<Portrait src={data.artwork} alt={data.name}/>*/}
+            {/*<Details>*/}
+            {/*    <p>Name: {data.name}</p>*/}
+            {/*    <p>#{data.id}</p>*/}
+            {/*    <p>Height: {data.height / 10} M</p>*/}
+            {/*    <p>Weight: {data.weight / 10} Kg</p>*/}
 
-                <div>
-                    <p>Types:</p>
-                    {data.types.map((type) => {
-                        return (
-                            <div>
-                                <p>{type.type.name}</p>
-                            </div>
-                        )
-                    })}
-                </div>
+            {/*    <div>*/}
+            {/*        <p>Types:</p>*/}
+            {/*        {data.types.map((type) => {*/}
+            {/*            return (*/}
+            {/*                <div>*/}
+            {/*                    <p>{type.type.name}</p>*/}
+            {/*                </div>*/}
+            {/*            )*/}
+            {/*        })}*/}
+            {/*    </div>*/}
 
-                <div>
-                    <p>Abilities:</p>
-                    {data.abilities.map((ability) => {
-                        return (
-                            <div>
-                                <p>{ability.ability.name}</p>
-                                <p>{ability.is_hidden && "(Hidden Ability)"}</p>
-                            </div>
-                        )
-                    })}
-                </div>
-            </Details>
-            <FlavorTextTable>
-                {detailsResponse.response.flavor_text_entries.map((entry) => {
-                    return (
-                        <div>
-                            <GameTitle>{entry.version.name}</GameTitle>
-                            <p>{entry.flavor_text}</p>
-                        </div>
-                    )
-                })}
-            </FlavorTextTable>
+            {/*    <div>*/}
+            {/*        <p>Abilities:</p>*/}
+            {/*        {data.abilities.map((ability) => {*/}
+            {/*            return (*/}
+            {/*                <div>*/}
+            {/*                    <p>{ability.ability.name}</p>*/}
+            {/*                    <p>{ability.is_hidden && "(Hidden Ability)"}</p>*/}
+            {/*                </div>*/}
+            {/*            )*/}
+            {/*        })}*/}
+            {/*    </div>*/}
+            {/*</Details>*/}
+            {/*<FlavorTextTable>*/}
+            {/*    {detailsResponse.response.flavor_text_entries.map((entry) => {*/}
+            {/*        return (*/}
+            {/*            <div>*/}
+            {/*                <GameTitle>{entry.version.name}</GameTitle>*/}
+            {/*                <p>{entry.flavor_text}</p>*/}
+            {/*            </div>*/}
+            {/*        )*/}
+            {/*    })}*/}
+            {/*</FlavorTextTable>*/}
         </Container>
     )
 }

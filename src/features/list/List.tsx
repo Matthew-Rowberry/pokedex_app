@@ -39,7 +39,6 @@ const List: React.FC<IParamProps> = (props) => {
                     <Entity
                         category={props.category}
                         entityName={dexEntityName}
-                        key={dexEntityName}
                     />
                 )
             })}
