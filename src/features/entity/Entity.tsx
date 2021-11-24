@@ -7,6 +7,7 @@ import Fav from '../fav/Fav'
 import typeColors from "../../data/typeStrings";
 import Bounce from "../bounce/Bounce";
 import {EntityType} from "../../data/type";
+import useEntity from "../../hooks/useEntity";
 
 interface IComponentProps {
     entityName: string;
@@ -114,8 +115,10 @@ const StyledBounce = styled.div<{category: EntityType}>`
 
 const Entity: React.FC<IComponentProps> = (props) => {
     const { loading, data, fetch } = useBaseEntity(props.category, props.entityName);
+    const entity = useEntity(props.category, props.entityName)
 
     useEffect(() => {
+        entity.getEntityData()
         if(!data) fetch()
     }, [])
 

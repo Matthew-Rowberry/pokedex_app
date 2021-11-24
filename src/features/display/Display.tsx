@@ -95,10 +95,10 @@ const GameTitle = styled.p`
 
 const Display: React.FC<IComponentProps> = (props) => {
     const species = useSpecies(props.category, props.name)
-
     // const {loading, data, fetch} = usePokemon(props.name);
     // const detailsResponse = useSpecies(props.name);
     useEffect(() => {
+
         species.getNewSpecies()
         // if (!data && !loading) fetch()
     }, [])
