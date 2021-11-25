@@ -2,7 +2,7 @@ export type EntityType = "pokemon" | "item";
 
 export type TypeToEntity = {
     pokemon: IPokemon,
-    item: IItem
+    item: IItem,
 }
 
 interface IEntity {
@@ -41,4 +41,11 @@ export enum Status {
     SUCCESS = 'success'
 }
 
-export type Entity = IItem | IPokemon;
+export interface ITransformedSpecies {
+    flavorTextEntries: {
+        flavorText: string,
+        version: {
+            name: string,
+        }
+    }[]
+}

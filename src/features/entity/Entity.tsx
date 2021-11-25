@@ -115,7 +115,7 @@ const Entity: React.FC<IComponentProps> = (props) => {
     const entity = useEntity(props.category, props.entityName);
 
     useEffect(() => {
-        if(!entity.value) entity.getEntityData()
+        if(!entity.value && entity.loading !== Status.FETCHING) entity.getEntityData();
     }, [])
 
     if(!entity.value || entity.loading === Status.FETCHING) {

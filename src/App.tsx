@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { BrowserRouter as Router } from "react-router-dom";
 import GlobalProvider from "./providers/GlobalProvider";
 import ThemeToggle from "./features/themeToggle/ThemeToggle";
-import ReduxTest from "./features/ReduxTest/ReduxTest";
 
 const NavContainer = styled.div`
   position: sticky;
@@ -16,7 +15,7 @@ const NavContainer = styled.div`
   padding: 10px 0;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  grid-template-areas: 'left center right';
+  grid-template-areas: '. center right';
   align-items: center;
   
 `;
@@ -50,8 +49,6 @@ const App: React.FC = () => {
                       <ToggleContainer>
                           <ThemeToggle/>
                       </ToggleContainer>
-
-                      <ReduxTest />
                   </NavContainer>
                   <DexContainer />
               </div>

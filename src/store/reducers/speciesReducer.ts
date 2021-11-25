@@ -1,5 +1,12 @@
-import {EntityType, Status} from "../../data/type";
+import {EntityType, ITransformedSpecies, Status} from "../../data/type";
 import {SpeciesActions} from "../actions/speciesActions";
+
+interface ISpeciesStore {
+    status: Status,
+    items: {
+        [key: string]: ITransformedSpecies
+    }
+}
 
 export interface IGetSpecies {
     type: SpeciesActions.GETSPECIES,
@@ -13,7 +20,7 @@ export interface ISetSpeciesData {
     payload: {
         entity: EntityType,
         name: string,
-        data: {}
+        data: ITransformedSpecies
     }
 }
 
@@ -26,7 +33,12 @@ export interface ISetError {
 
 type Action = IGetSpecies | ISetSpeciesData | ISetError
 
-function speciesReducer(state: any = {}, action: Action) {
+const SpeciesStore = {
+    status: Status.IDLE,
+    items: {}
+}
+
+function speciesReducer(state: ISpeciesStore = SpeciesStore, action: Action): ISpeciesStore {
     switch (action.type) {
         case SpeciesActions.GETSPECIES:
             return {
@@ -37,8 +49,9 @@ function speciesReducer(state: any = {}, action: Action) {
             return {
                 ...state,
                 status: Status.SUCCESS,
-                [action.payload.name]: {
-                    data: action.payload.data
+                items: {
+                    ...state.items,
+                    [action.payload.name]: action.payload.data
                 }
             }
         case SpeciesActions.SETERROR:

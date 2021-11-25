@@ -1,4 +1,4 @@
-import {EntityType, IPokemon, IItem} from './type'
+import {EntityType, IPokemon, IItem, ITransformedSpecies} from './type'
 import axios from "axios";
 
 interface ISpeciesResponse {
@@ -11,15 +11,6 @@ interface ISpeciesResponse {
         version: {
             name: string,
             url: string
-        }
-    }[]
-}
-
-interface ISpecies {
-    flavor_text_entries: {
-        flavor_text: string,
-        version: {
-            name: string,
         }
     }[]
 }
@@ -66,16 +57,22 @@ const transforms = {
     item: transformItem
 }
 
-const transformSpecies = (res:ISpeciesResponse):ISpecies => {
-    let species: ISpecies = {
-        flavor_text_entries: []
-    }
+const transformSpecies = (res:ISpeciesResponse):ITransformedSpecies => {
+    let species: ITransformedSpecies = {
+        flavorTextEntries: []
+    };
 
-    species.flavor_text_entries = res.flavor_text_entries.filter((entry => entry.language.name === 'en'))
-    species.flavor_text_entries = species.flavor_text_entries.map((entry) => {
+    const filterRes = res.flavor_text_entries.filter((entry => entry.language.name === 'en'))
+    species.flavorTextEntries = filterRes.map((entry) => {
         entry.version.name= entry.version.name.replace(/-/g, " ");
-        return entry
+        return {
+            flavorText: entry.flavor_text,
+            version: {
+                name: entry.version.name
+            }
+        }
     })
+
 
     return species
 }

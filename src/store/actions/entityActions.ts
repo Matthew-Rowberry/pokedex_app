@@ -2,9 +2,9 @@ import {EntityType} from "../../data/type";
 import {getEntity} from "../../data/api";
 
 export enum EntityActions {
-    GETENTITY = 'species/getEntity',
-    SETENTITY = 'species/setEntity',
-    SETERROR = 'species/setError',
+    GETENTITY = 'entity/getEntity',
+    SETENTITY = 'entity/setEntity',
+    SETERROR = 'entity/setError',
 }
 
 export const loadEntity = (entity: EntityType, name: string) => ({

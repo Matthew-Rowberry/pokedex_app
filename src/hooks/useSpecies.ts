@@ -1,16 +1,17 @@
-import {EntityType} from "../data/type";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../store/store";
 import {requestGetSpecies} from "../store/actions/speciesActions";
 
-const useSpecies = (entity: EntityType, name: string) => {
+const useSpecies = (name: string) => {
     const dispatch = useDispatch();
-    const value = useSelector((state: RootState) => state.species[name])
+    const loading = useSelector((state: RootState) => state.species.status)
+    const value = useSelector((state: RootState) => state.species.items[name])
 
     const getNewSpecies = () => {
         dispatch(requestGetSpecies(name))
     }
-    return { value, getNewSpecies}
+
+    return { loading, value, getNewSpecies}
 }
 
 export default useSpecies;
