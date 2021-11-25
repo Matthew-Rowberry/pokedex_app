@@ -73,7 +73,7 @@ const Display: React.FC<IComponentProps> = (props) => {
                         return (
                             <div>
                                 <p>{ability.ability.name}</p>
-                                <p>{ability.is_hidden && "(Hidden Ability)"}</p>
+                                <p>{ability.isHidden && "(Hidden Ability)"}</p>
                             </div>
                         )
                     })}

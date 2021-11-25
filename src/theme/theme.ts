@@ -8,8 +8,8 @@ export const dark = {
     ...theme,
     colors: {
         background: {
-            primary: '#f4523c',
-            secondary: '#fb7247',
+            primary: '#fb7247',
+            secondary: '#f4523c',
             tertiary: '#000'
         },
         foreground: {
@@ -25,8 +25,8 @@ export const light = {
     ...theme,
     colors: {
         background: {
-            primary: '#fb7247',
-            secondary: '#f4523c',
+            primary: '#f4523c',
+            secondary: '#fb7247',
             tertiary: '#f0511d'
         },
         foreground: {

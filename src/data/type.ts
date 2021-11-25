@@ -23,7 +23,7 @@ export interface IPokemon extends IEntity{
         ability: {
             name: string
         };
-        is_hidden: boolean
+        isHidden: boolean
     }[];
     types: {
         slot: number,

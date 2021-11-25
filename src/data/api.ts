@@ -15,6 +15,15 @@ interface ISpeciesResponse {
     }[]
 }
 
+interface IAbilitySlot {
+    ability: {
+        name: string,
+        url: string
+    },
+    is_hidden: boolean,
+    slot: number
+}
+
 
 export const getEntityList = async (key: EntityType, offsetValue: number) => {
     const res = await axios.get(`https://pokeapi.co/api/v2/${key}?limit=30&offset=${offsetValue}`);
@@ -32,6 +41,13 @@ export const getSpecies = async (name: string) => {
 }
 
 export const transformPokemon = (data: any): IPokemon => {
+    let abilitiesArray = data.abilities.map((abilitySlot: IAbilitySlot) => {
+        return {
+            ability: abilitySlot.ability,
+            isHidden: abilitySlot.is_hidden,
+        }
+    })
+
     return {
         id: data.id,
         name: data.name,
@@ -39,7 +55,7 @@ export const transformPokemon = (data: any): IPokemon => {
         artwork: data.sprites.other["official-artwork"].front_default,
         height: data.height,
         weight: data.weight,
-        abilities: data.abilities,
+        abilities: abilitiesArray,
         types: data.types
     }
 }

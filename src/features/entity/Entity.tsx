@@ -60,8 +60,7 @@ const ListEntity = styled.div`
 `;
 
 const Name = styled.p`
-  background-color: #000;
-  color: ${props => props.theme.colors.foreground.onBackground};
+  color: #222;
   width: fit-content;
   position: absolute;
   top: 5%;
