@@ -6,15 +6,10 @@ const theme = {
 
 export const dark = {
     ...theme,
-    background: {
-        primary: '#FFF',
-        secondary: '#7e3de0',
-        tertiary: '#601cc7'
-    },
     colors: {
         background: {
-            primary: '#fb7247',
-            secondary: '#f4523c',
+            primary: '#f4523c',
+            secondary: '#fb7247',
             tertiary: '#000'
         },
         foreground: {
@@ -30,12 +25,12 @@ export const light = {
     ...theme,
     colors: {
         background: {
-            primary: '#f4523c',
-            secondary: '#fb7247',
-            tertiary: '#000'
+            primary: '#fb7247',
+            secondary: '#f4523c',
+            tertiary: '#f0511d'
         },
         foreground: {
-            onBackground: '#000',
+            onBackground: '#FFF',
             onSurface: '#222'
         },
         icon: '#000',

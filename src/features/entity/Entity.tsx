@@ -60,6 +60,8 @@ const ListEntity = styled.div`
 `;
 
 const Name = styled.p`
+  background-color: #000;
+  color: ${props => props.theme.colors.foreground.onBackground};
   width: fit-content;
   position: absolute;
   top: 5%;
@@ -69,10 +71,9 @@ const Name = styled.p`
   pointer-events: none;
   text-transform: capitalize;
   font-size: 1.4rem;
-  font-weight: 900;
-  color: #222;
+  font-weight: 600;
   border-radius: 4px;
-  padding: 5px;
+  padding: 5px 10px;
 `
 
 const Icon = styled.img<{ category?: EntityType }>`
