@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background-color: ${props => (props.theme.colors.background)};
+    background-color: ${props => props.theme.colors.background.primary};
   }
 `
 
