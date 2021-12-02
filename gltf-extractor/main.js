@@ -10,10 +10,10 @@ const pokemonDirectories = fs.readdirSync(assetPath);
  * Get ideal object format
  */
 const getOptimalObject = (files, order = [
+    "XY",
     "P2",
     "",
-    "BR",
-    "XY"
+    "BR"
 ]) => {
     const fileNames = files.map(file => file.split("/").at(-1));
 

@@ -8,24 +8,25 @@ const ModelContainer = styled.div`
     //height: 600px
 `;
 
-export function Model(props) {
-    const { scene } = useGLTF('/models/testPika.glb')
+export function Model({name, id, ...props}) {
+    const natDex = ('00' + id).slice(-3)
+    const { scene } = useGLTF(`/models/${natDex}-${name}.gltf`)
     return <primitive object={scene} {...props} />
 }
 
-export default function ThreeDProfile() {
+export default function wThreeDProfile({name, id}) {
     return (
         <ModelContainer className="model">
             <Canvas
                 camera={{
                     fov: 80,
                     near: 0.1,
-                    far: 100,
+                    far: 1000,
                     position: [0, 5, 5],
                 }}
             >
                 <Suspense fallback={null}>
-                    <Model />
+                    <Model name={name} id={id} />
                     <OrbitControls />
                     <Environment preset="studio" background />
                 </Suspense>

@@ -47,7 +47,7 @@ const Display: React.FC<IComponentProps> = (props) => {
 
     return (
         <Container>
-            <ThreeDProfile />
+            <ThreeDProfile name={pokemon.entity.value.name} id={pokemon.entity.value.id} />
             {/*<Portrait src={pokemon.entity.value.artwork} alt={pokemon.entity.value.name}/>*/}
             <Details>
                 <p>Name: {pokemon.entity.value.name}</p>
