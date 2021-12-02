@@ -1,5 +1,7 @@
 .App {
   font-size: calc(10px + 2vmin);
   color: white;
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }

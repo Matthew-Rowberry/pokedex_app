@@ -7,6 +7,7 @@ import ParamsChecker from "../paramChecker/ParamChecker";
 const Container = styled.div`
   background-color: ${props => props.theme.colors.background.primary};
   overflow: scroll;
+  height: 100%;
 `;
 
 const ScrollingDex = styled.div`

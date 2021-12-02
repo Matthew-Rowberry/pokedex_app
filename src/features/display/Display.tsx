@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {EntityType} from "../../data/type";
 import usePokemon from "../../hooks/usePokemon";
+import ThreeDProfile from "../threeDProfile/ThreeDProfile";
 
 interface IComponentProps {
     category: EntityType
@@ -10,20 +11,18 @@ interface IComponentProps {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 350px 1fr;
-  grid-template-areas: 'img details' 
-                          'main main';
+  grid-template-columns: 50% 1fr;
+  height: 100%;
 `;
 
 const Portrait = styled.img`
   width: 100%;
-  grid-area: img
+  height: 100%;
 `;
 
 const Details = styled.div`
-  width: 100%;
-  grid-area: details;
-
+  overflow: scroll;
+  
   p {
     text-transform: capitalize;
   }
@@ -31,7 +30,6 @@ const Details = styled.div`
 
 const FlavorTextTable = styled.div`
   overflow: scroll;
-  grid-area: main
 `;
 
 const GameTitle = styled.p`
@@ -49,7 +47,8 @@ const Display: React.FC<IComponentProps> = (props) => {
 
     return (
         <Container>
-            <Portrait src={pokemon.entity.value.artwork} alt={pokemon.entity.value.name}/>
+            <ThreeDProfile />
+            {/*<Portrait src={pokemon.entity.value.artwork} alt={pokemon.entity.value.name}/>*/}
             <Details>
                 <p>Name: {pokemon.entity.value.name}</p>
                 <p>#{pokemon.entity.value.id}</p>
@@ -79,16 +78,16 @@ const Display: React.FC<IComponentProps> = (props) => {
                     })}
                 </div>
             </Details>
-            <FlavorTextTable>
-                {pokemon.species.value?.flavorTextEntries.map((entry) => {
-                    return (
-                        <div>
-                            <GameTitle>{entry.version.name}</GameTitle>
-                            <p>{entry.flavorText}</p>
-                        </div>
-                    )
-                })}
-            </FlavorTextTable>
+            {/*<FlavorTextTable>*/}
+            {/*    {pokemon.species.value?.flavorTextEntries.map((entry) => {*/}
+            {/*        return (*/}
+            {/*            <div>*/}
+            {/*                <GameTitle>{entry.version.name}</GameTitle>*/}
+            {/*                <p>{entry.flavorText}</p>*/}
+            {/*            </div>*/}
+            {/*        )*/}
+            {/*    })}*/}
+            {/*</FlavorTextTable>*/}
         </Container>
     )
 }
